@@ -1,0 +1,291 @@
+    :root {
+      --clr-primary:    #228B22;    /* Forest Green */
+      --clr-accent:     #F4A261;    /* Palm Orange */
+      --clr-tech:       #2A9DF4;    /* Tech Blue */
+      --clr-earth:      #5D4037;
+      --clr-beige:      #F8F1E9;
+      --clr-dark:       #263238;
+      --clr-gray:       #4a5568;
+      --clr-light:      #f7fafc;
+    }
+html{
+  scroll-behavior: smooth;
+  transition: 5s;
+}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: var(--clr-beige);
+      color: var(--clr-dark);
+      line-height: 1.6;
+    }
+
+    /* ── Scroll Animation Base ── */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(60px);
+      transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+      will-change: opacity, transform;
+    }
+
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stagger children a bit */
+    .animate-on-scroll .card,
+    .animate-on-scroll form,
+    .animate-on-scroll .contact-info {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .animate-on-scroll.visible .card,
+    .animate-on-scroll.visible form,
+    .animate-on-scroll.visible .contact-info {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Delay stagger for cards */
+    .animate-on-scroll .card:nth-child(1) { transition-delay: 0.1s; }
+    .animate-on-scroll .card:nth-child(2) { transition-delay: 0.25s; }
+    .animate-on-scroll .card:nth-child(3) { transition-delay: 0.4s;  }
+
+    /* ── Navbar ── */
+    .navbar {
+      background: var(--clr-primary);
+      color: white;
+      padding: 1rem 5%;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      transition: background 0.4s;
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: white;
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--clr-accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--clr-accent);
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: white;
+    }
+
+    /* ── Hero (no animation needed – always visible) ── */
+    .hero {
+      background: linear-gradient(rgba(34,139,34,0.75), rgba(34,139,34,0.45)),
+                  url('img/Gemini_Generated_Image_byqu6cbyqu6cbyqu.png') center/cover no-repeat;
+      color: white;
+      text-align: center;
+      padding: 9rem 5% 7rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      margin-bottom: 1rem;
+      text-shadow: 0 3px 12px rgba(0,0,0,0.5);
+    }
+
+    .hero p {
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
+      max-width: 680px;
+      margin: 0 auto 2.5rem;
+      opacity: 0.95;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--clr-accent);
+      color: white;
+      padding: 0.9rem 2.2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.25s;
+    }
+
+    .btn:hover {
+      background: #e07b3e;
+      transform: translateY(-2px);
+    }
+
+    /* ── Sections ── */
+    section {
+      padding: 5rem 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      color: var(--clr-primary);
+      font-size: clamp(2.1rem, 5vw, 3.2rem);
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+    }
+
+    .card-img {
+      height: 180px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .card-body {
+      padding: 1.8rem;
+    }
+
+    .card h3 {
+      color: var(--clr-primary);
+      margin-bottom: 0.8rem;
+    }
+
+    /* ── Contact ── */
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 3.5rem;
+      align-items: start;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+
+    input, textarea, select {
+      padding: 0.95rem 1.3rem;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 1rem;
+      width: 100%;
+      font-family: inherit;
+    }
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .contact-info {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    .contact-info h3 {
+      color: var(--clr-primary);
+      margin-bottom: 1.4rem;
+    }
+#msg{
+  color: #61b752;
+    margin-top: -20px;
+    display: block;
+}
+    /* ── Footer ── */
+    footer {
+      background: var(--clr-dark);
+      color: #cbd5e1;
+      text-align: center;
+      padding: 3rem 5% 2rem;
+    }
+
+    footer a {
+      color: var(--clr-accent);
+      text-decoration: none;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 820px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--clr-primary);
+        padding: 1.5rem 5%;
+        gap: 1.6rem;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .contact-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 6rem 5% 5rem;
+      }
+    }
+ 
