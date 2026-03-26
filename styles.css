@@ -160,7 +160,7 @@ html{
       opacity: 0.95;
     }
     .d-none {
-      display: block !important;
+      display: none !important;
   }
     .btn {
       display: inline-block !important;
