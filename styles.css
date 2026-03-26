@@ -1,5 +1,5 @@
     :root {
-      --clr-primary:    #228B22;    /* Forest Green */
+      --clr-primary:    #100d5c;    /* Forest Green */
       --clr-accent:     #F4A261;    /* Palm Orange */
       --clr-tech:       #2A9DF4;    /* Tech Blue */
       --clr-earth:      #5D4037;
@@ -20,7 +20,7 @@ html{
     }
 
     body {
-      font-family: 'Inter', system-ui, sans-serif;
+      font-family: 'Times New Roman', Times, serif !important;
       background-color: var(--clr-beige);
       color: var(--clr-dark);
       line-height: 1.6;
@@ -63,9 +63,10 @@ html{
     /* ── Navbar ── */
     .navbar {
       background: var(--clr-primary);
-      color: white;
-      padding: 1rem 5%;
-      position: sticky;
+      color: white !important;
+      padding: 1rem 5% !important;
+      position: sticky !important;
+      display: block !important;
       top: 0;
       z-index: 1000;
       box-shadow: 0 2px 6px rgba(0,0,0,0.15);
@@ -103,7 +104,10 @@ html{
       font-weight: 500;
       transition: color 0.2s;
     }
-
+    .navbar a:hover{
+      color: white !important;
+      text-decoration: none !important;
+    }
     .nav-links a:hover {
       color: var(--clr-accent);
     }
@@ -116,36 +120,57 @@ html{
     }
 
     /* ── Hero (no animation needed – always visible) ── */
-    .hero {
-      background: linear-gradient(rgba(34,139,34,0.75), rgba(34,139,34,0.45)),
-                  url('img/Gemini_Generated_Image_byqu6cbyqu6cbyqu.png') center/cover no-repeat;
+    .carousel-inner{
+      height: 90vh;
+      width: 80%;
+
+    }
+    .carousel-item {
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                  url('img/header\ image\ 2.jpg') center/cover no-repeat;
       color: white;
+      height: 100%;
       text-align: center;
       padding: 9rem 5% 7rem;
     }
-
-    .hero h1 {
-      font-size: clamp(2.4rem, 6vw, 4.2rem);
+    .carousel-item2 {
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                  url('img/Gemini_Generated_Image_byqu6cbyqu6cbyqu.png') center/cover no-repeat;
+    }
+    .carousel-item3 {
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                  url('img/header\ image\ 3.jpg') center/cover no-repeat;
+      }
+.carousel-caption{
+  height: 100%;
+  width: 60%;
+  bottom: -34% !important;
+  left: 22% !important;
+}
+    .carousel-caption h1 {
+      font-size: clamp(1.4rem, 6vw, 3.2rem);
       margin-bottom: 1rem;
       text-shadow: 0 3px 12px rgba(0,0,0,0.5);
     }
 
-    .hero p {
+    .carousel-caption p {
       font-size: clamp(1.1rem, 3vw, 1.4rem);
       max-width: 680px;
       margin: 0 auto 2.5rem;
       opacity: 0.95;
     }
-
+    .d-none {
+      display: block !important;
+  }
     .btn {
-      display: inline-block;
-      background: var(--clr-accent);
-      color: white;
-      padding: 0.9rem 2.2rem;
-      border-radius: 6px;
+      display: inline-block !important;
+      background: var(--clr-accent) !important;
+      color: white !important;
+      padding: 0.9rem 2.2rem !important;
+      border-radius: 6px !important;
       text-decoration: none;
-      font-weight: 600;
-      transition: all 0.25s;
+      font-weight: 600 !important;
+      transition: all 0.25s !important;
     }
 
     .btn:hover {
@@ -155,7 +180,7 @@ html{
 
     /* ── Sections ── */
     section {
-      padding: 5rem 5%;
+      padding: 3rem 5%;
       max-width: 1400px;
       margin: 0 auto;
     }
