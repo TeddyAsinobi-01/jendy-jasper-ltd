@@ -1,234 +1,498 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Jendy-Jasper Limited – Rooted in Nature, Powered by Innovation</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Jendy Jasper Limited — Diversified Nigerian Enterprise</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="new.css">
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="nav-container">
-      <a href="#" class="logo"><span>Jendy-Jasper </span>Ltd</a>
-
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-
-      <div class="hamburger" id="hamburger">☰</div>
+<!-- ─── NAV ─────────────────────────────────── -->
+<nav id="nav">
+  <a href="#" class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M14 34C14 20 23 11 30 14C34.5 15.5 36.5 21 34 29" stroke="white" stroke-width="5.5" stroke-linecap="round" opacity="0.85"/>
+        <path d="M46 34C46 20 37 11 30 14C25.5 15.5 23.5 21 26 29" stroke="white" stroke-width="5.5" stroke-linecap="round" opacity="0.85"/>
+        <path d="M20 48C24 55 30 58 30 48C30 42 30 35 30 29" stroke="#C9A84C" stroke-width="5.5" stroke-linecap="round"/>
+      </svg>
     </div>
-  </nav>
-
-  <!-- Hero -->
-  <!-- <header class="hero" id="home">
-    <h1>Rooted in Palm. Powered by Innovation.</h1>
-    <p>Palm oil storage • Livestock & cash crops • Gas energy plant • Cloud & DevOps services</p>
-    <a href="#contact" class="btn">Get in Touch</a>
-  </header> -->
-<header id="home">
-<!-- SLIDER -->
-   <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-    <ol class="carousel-indicators">
-      <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-      <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-      <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner">
-      <div class="carousel-item active" data-interval="4000" >
-        <div class="carousel-caption d-non d-md-block">
-          <h1>Find Energy Solutions</h1>
-          <p>Gas plants, using clean and green energy</p>
-        </div>
-      </div>
-      <div class="carousel-item carousel-item2" data-interval="4000">
-        <div class="carousel-caption d-non d-md-block">
-          <h1>We sell and Store Agro Products</h1>
-          <p>Cash crops, Livestock and Palm Oil Storage</p>
-        </div>
-      </div>
-      <div class="carousel-item carousel-item3" data-interval="4000">
-        <div class="carousel-caption d-non d-md-block">
-          <h1>Information Technology</h1>
-          <p>We Also offer Cloud and Dev Ops Services</p>
-        </div>
-      </div>
-    </div>
-    <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
+    <div class="logo-text">JENDY JASPER<em>LIMITED</em></div>
+  </a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#divisions">Divisions</a>
+    <a href="#values">Values</a>
+    <a href="#leadership">Leadership</a>
+    <a href="#contact" class="nav-btn">Contact Us</a>
   </div>
+  <div class="hamburger" id="ham">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
 
-</header>
-  <!-- About -->
-  <section id="about" class="animate-on-scroll">
-    <h2>What We Do?</h2>
-    <p style="max-width:800px; margin:0 auto 3rem; text-align:center; font-size:1.15rem; color:#4a5568;">
-      As a diversified and forward-thinking group, Jendy-Jasper Limited operates across key sectors — from 
-      natural resources to digital infrastructure — delivering value, reliability, and
-      innovation to support Nigeria&#39;s growth and self-reliance.
-      We begin with excellence in modern Cloud & DevOps services, 
-      expand into reliable energy solutions through our gas plant and energy services, 
-      and deliver palm oil storage and sustainable agricultural produce  — creating value across 
-      digital infrastructure and natural resources
-    </p>
+<!-- ─── HERO ─────────────────────────────────── -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-arc"></div>
 
-     <div class="grid-3"> 
-      <div class="card">
-        <div class="card-body">
-          <h3>Technology</h3>
-          <p>Cloud infrastructure, DevOps automation, CI/CD pipelines — bringing enterprise-grade solutions to businesses.
-            Enterprise cloud infrastructure and DevOps services — enabling businesses to scale digitally,
-            automate operations, and innovate securely in a connected economy.
-          </p>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-body">
-          <h3>Energy</h3>
-          <p>Industrial gas processing and reliable energy supply supporting agriculture and regional development.
-            Gas plant operations delivering processing, storage, and supply — supporting
-            agriculture, manufacturing, and national energy infrastructure with safe, efficient solutions.
-          </p>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-body">
-          <h3>Agriculture</h3>
-          <p> Palm oil storage, livestock rearing, and selected cash crops — built on sustainable Nigerian farming practices.
-          Core foundation in palm oil storage, bulk handling, quality preservation, livestock, and cash
-          crops — ensuring year-round supply chain reliability for food security and industrial use.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-<!-- Services Section -->
-<section id="services" class="animate-on-scroll">
-  <h2>Our Businesses</h2>
-  <p style="max-width:760px; margin:0 auto 3.5rem; text-align:center; font-size:1.15rem; color:#4a5568;">
-    From sustainable agriculture roots to reliable energy solutions and cutting-edge digital infrastructure — we deliver integrated value across natural resources and technology.
-  </p>
-
-  <div class="grid-3">
-     <!-- Technology / Cloud & DevOps -->
-     <div class="card">
-      <div class="card-img" style="background-image:url('img/Information-Technology.jpg')"></div>
-      <div class="card-body">
-        <h3>Cloud & DevOps Services</h3>
-        <p>Modern technology arm offering enterprise-grade cloud infrastructure and DevOps automation — helping businesses scale securely, deploy faster, and operate efficiently in today's digital landscape.</p>
-        <ul style="margin-top:1rem; padding-left:1.2rem; font-size:0.95rem; color:#4a5568;">
-          <li>Cloud infrastructure setup & management (AWS, Azure, GCP)</li>
-          <li>CI/CD pipelines & automation (CodePipeline, Jenkins, GitHub Actions)</li>
-          <li>Container orchestration (Docker, Kubernetes)</li>
-          <li>Infrastructure as Code (Terraform, CloudFormation)</li>
-          <li>Monitoring, logging & security optimization</li>
-        </ul>
-      </div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span>Jendy Jasper Limited</span>
     </div>
 
-    <!-- Energy / Gas Plant -->
-    <div class="card">
-      <div class="card-img" style="background-image:url('img/gas-power-africa.jpg')"></div>
-      <div class="card-body">
-        <h3>Energy Solutions</h3>
-        <p>Our industrial gas plant delivers reliable processing, storage, and supply of industrial gases. We support agriculture, manufacturing, and regional energy needs with safe, efficient operations and infrastructure services.</p>
-        <ul style="margin-top:1rem; padding-left:1.2rem; font-size:0.95rem; color:#4a5568;">
-          <li>Gas processing & purification</li>
-          <li>Bulk storage & terminalling</li>
-          <li>Transportation & distribution networks</li>
-          <li>Engineering support for gas facilities</li>
-        </ul>
-      </div>
+    <div class="hero-headline">
+      <h1>Seven Sectors.<br/><span class="line-gold">One Vision.</span><br/><span class="line-outline">Built to Last.</span></h1>
     </div>
 
-    <!-- Agriculture / Palm Oil -->
-    <div class="card">
-      <div class="card-img" style="background-image:url('img/palm-oil-main.png')"></div>
-      <div class="card-body">
-        <h3>Agriculture & Commodities</h3>
-        <p>We specialize in premium palm oil storage, seasonal bulk purchasing, quality preservation, and distribution. Our operations also include livestock management and selected cash crops — all built on sustainable Nigerian farming practices for consistent supply and long-term reliability.</p>
-        <ul style="margin-top:1rem; padding-left:1.2rem; font-size:0.95rem; color:#4a5568;">
-          <li>Bulk palm oil storage (temperature-controlled)</li>
-          <li>Seasonal sourcing & off-season supply</li>
-          <li>Livestock rearing & cash crop integration</li>
-          <li>Quality assurance & logistics support</li>
-        </ul>
-      </div>
+    <p class="hero-sub">A diversified Nigerian conglomerate operating across the industries that power everyday life — from energy and agriculture to technology, trade, and beyond.</p>
+
+    <div class="hero-divs">
+      <div class="hdiv" style="--dcolor:var(--c-trade)"><div class="hdiv-dot"></div><span>General Trading</span></div>
+      <div class="hdiv" style="--dcolor:var(--c-auto)"><div class="hdiv-dot"></div><span>Automobile</span></div>
+      <div class="hdiv" style="--dcolor:var(--c-agri)"><div class="hdiv-dot"></div><span>Agriculture</span></div>
+      <div class="hdiv" style="--dcolor:var(--c-life)"><div class="hdiv-dot"></div><span>Lifestyle & Wellness</span></div>
+      <div class="hdiv" style="--dcolor:var(--c-tech)"><div class="hdiv-dot"></div><span>Technology</span></div>
+      <div class="hdiv" style="--dcolor:var(--c-energy)"><div class="hdiv-dot"></div><span>Oil, Gas & Energy</span></div>
+      <div class="hdiv" style="--dcolor:var(--c-edu)"><div class="hdiv-dot"></div><span>Education</span></div>
+    </div>
+
+    <div class="hero-actions">
+      <a href="#divisions" class="btn-gold">Explore Our Divisions</a>
+      <a href="#contact" class="btn-ghost">Get in Touch</a>
     </div>
   </div>
 
-  <!-- Optional call-to-action at bottom of services -->
-  <div style="text-align:center; margin-top:4rem;">
-    <a href="#contact" class="btn">Discuss Your Project Needs</a>
+  <div class="hero-scroll">
+    <div class="scroll-bar"></div>
+    <div class="scroll-label">Scroll</div>
   </div>
 </section>
 
-  <!-- Contact -->
-  <section id="contact" class="animate-on-scroll">
-    <h2>Get In Touch</h2>
+<!-- ─── TICKER ────────────────────────────────── -->
+<div class="strip">
+  <div class="strip-track">
+    <div class="strip-item"><span>General Trading & Merchandise</span><i>◆</i></div>
+    <div class="strip-item"><span>Automobile & Auto Services</span><i>◆</i></div>
+    <div class="strip-item"><span>Agriculture & Agro-Allied</span><i>◆</i></div>
+    <div class="strip-item"><span>Lifestyle, Beauty & Wellness</span><i>◆</i></div>
+    <div class="strip-item"><span>Technology & Consulting</span><i>◆</i></div>
+    <div class="strip-item"><span>Oil, Gas & Energy</span><i>◆</i></div>
+    <div class="strip-item"><span>Education Services</span><i>◆</i></div>
+    <div class="strip-item"><span>General Trading & Merchandise</span><i>◆</i></div>
+    <div class="strip-item"><span>Automobile & Auto Services</span><i>◆</i></div>
+    <div class="strip-item"><span>Agriculture & Agro-Allied</span><i>◆</i></div>
+    <div class="strip-item"><span>Lifestyle, Beauty & Wellness</span><i>◆</i></div>
+    <div class="strip-item"><span>Technology & Consulting</span><i>◆</i></div>
+    <div class="strip-item"><span>Oil, Gas & Energy</span><i>◆</i></div>
+    <div class="strip-item"><span>Education Services</span><i>◆</i></div>
+  </div>
+</div>
 
-    <div class="contact-wrapper">
-      <form name="submit-to-google-sheet">
-        <input type="text" name="Name" id="name"  placeholder="Your Name" required>
-        <input type="email" name="Email" id="email"  placeholder="Email Address" required>
-        <select required>
-          <option value="" disabled selected>Service you're interested in</option>
-          <option value="invest">Invest With Us</option>
-          <option value="agro">Palm Oil & Agriculture</option>
-          <option value="energy">Gas Energy Plant</option>
-          <option value="tech">Cloud & DevOps Services</option>
-        </select>
-        <textarea name="Message" rows="6" placeholder="Your message..." required></textarea>
-        <button type="submit" class="btn" style="align-self: flex-start;">Send Message</button>
-        <span id="msg"></span>
-      </form>
+<!-- ─── ABOUT ─────────────────────────────────── -->
+<section class="about-section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="av-main">
+          <div class="av-main-inner">
+            <h3>Imo State, Nigeria</h3>
+            <p>Headquarters &mdash; Ikeduru LGA</p>
+          </div>
+        </div>
+        <div class="av-gold">
+          <div class="av-gold-num">7</div>
+          <div class="av-gold-label">Business Divisions</div>
+        </div>
+        <div class="av-white">
+          <div class="av-white-num">2026</div>
+          <div class="av-white-label">Established</div>
+        </div>
+      </div>
 
-      <div class="contact-info">
-        <h3>Contact Details</h3>
-        <p><strong>Imo State, Nigeria</strong></p>
-        <p>+234 803 000 1234</p>
-        <p>hello@palmforge.ng</p>
-        <p style="margin-top:1.8rem;">We typically respond within 24–48 hours.</p>
+      <div class="reveal d2">
+        <div class="label"><span>Who We Are</span></div>
+        <h2 class="section-title dark" style="color:var(--navy)">A Conglomerate<br/><em style="font-style:italic;color:var(--gold)">Built for Africa</em></h2>
+        <p class="section-body dark" style="margin-bottom:36px">Jendy Jasper Limited is a duly incorporated Nigerian enterprise operating across seven distinct business sectors. Our structure is deliberately diversified — enabling us to deploy capital, talent, and operational capacity across multiple industries simultaneously.</p>
+        <p class="section-body dark" style="margin-bottom:48px">Registered under CAMA 2020, fully compliant with all relevant regulatory bodies, and headquartered in Imo State, we are building enterprise infrastructure that creates lasting value in the Nigerian economy.</p>
+
+        <div class="about-pillars">
+          <div class="pillar">
+            <div class="pillar-num">01</div>
+            <div><h4>CAC Incorporated</h4><p>Formally registered under the Companies and Allied Matters Act (CAMA) 2020 with full compliance across all divisions.</p></div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">02</div>
+            <div><h4>Multi-Sector Portfolio</h4><p>Seven incorporated business lines operating under one consolidated brand and governance framework.</p></div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">03</div>
+            <div><h4>Headquartered in Imo State</h4><p>Physical operations, management, and decision-making rooted in Nigeria — with ambitions that extend across the continent.</p></div>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
-  <!-- <div class="contact-right">
-    <form name="submit-to-google-sheet">
-        <input type="text" name="Name" id="name" placeholder="Your Name" required>
-        <input type="email" name="Email" id="email" placeholder="Your Email" required>
-        <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
-        <button type="submit" class=" btn btn2">Submit</button>
-    </form>
-    <span id="msg"></span>
-</div> -->
-  <!-- Footer -->
-  <footer>
-    <p>© 2025–2026 PalmForge. All rights reserved.<br>
-      <a href="#">Privacy Policy</a> • <a href="#">Terms of Service</a></p>
-  </footer>
+  </div>
+</section>
 
-  <!-- Link Javascript -->
-  <script src="index.js"></script>
+<!-- ─── DIVISIONS ─────────────────────────────── -->
+<section class="divs-section" id="divisions">
+  <div class="container">
+    <div class="divs-header">
+      <div>
+        <div class="label reveal"><span>What We Do</span></div>
+        <h2 class="section-title reveal d1">Our Seven<br/><em style="font-style:italic;color:var(--gold)">Business Divisions</em></h2>
+      </div>
+      <p style="font-size:16px;color:rgba(255,255,255,0.4);max-width:380px;line-height:1.8;font-style:italic;font-family:'Playfair Display',serif" class="reveal d2">Seven sectors. One unified enterprise. Each division backed by the full strength of the Jendy Jasper brand.</p>
+    </div>
+
+    <div class="divs-grid">
+
+      <!-- 01 General Trading -->
+      <div class="div-card reveal" style="--dc:var(--c-trade)">
+        <div class="div-top-bar"></div>
+        <div class="div-num">01</div>
+        <div class="div-icon">
+          <svg fill="none" stroke="var(--c-trade)" viewBox="0 0 24 24" stroke-width="1.5" width="24" height="24"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+        </div>
+        <h3 class="div-name">General Trading &amp; Merchandise</h3>
+        <p class="div-desc">End-to-end trading operations spanning importation, distribution, and retail — serving consumers and businesses across Nigeria.</p>
+        <ul class="div-services">
+          <li>Importation &amp; exportation of goods</li>
+          <li>Wholesale &amp; retail distribution</li>
+          <li>Supermarket &amp; retail store operations</li>
+          <li>Wines, beverages &amp; spirits</li>
+        </ul>
+        <div class="div-badge"><div class="div-badge-dot"></div>Active Division</div>
+      </div>
+
+      <!-- 02 Automobile -->
+      <div class="div-card reveal d1" style="--dc:var(--c-auto)">
+        <div class="div-top-bar"></div>
+        <div class="div-num">02</div>
+        <div class="div-icon">
+          <svg fill="none" stroke="var(--c-auto)" viewBox="0 0 24 24" stroke-width="1.5" width="24" height="24"><path d="M9 17H7A5 5 0 017 7h10a5 5 0 015 5v2h-2M9 17h6M9 17a2 2 0 104 0M15 17a2 2 0 100-4"/><path d="M3 12h2M7 7l2-4h6l2 4"/></svg>
+        </div>
+        <h3 class="div-name">Automobile &amp; Auto Services</h3>
+        <p class="div-desc">Full-spectrum automotive services — from vehicle sales and dealership to spare parts supply and vehicle maintenance.</p>
+        <ul class="div-services">
+          <li>Motor vehicle sales &amp; dealership</li>
+          <li>Auto spare parts supply</li>
+          <li>Tyre sales &amp; services</li>
+          <li>Vehicle maintenance &amp; support</li>
+        </ul>
+        <div class="div-badge"><div class="div-badge-dot"></div>Active Division</div>
+      </div>
+
+      <!-- 03 Agriculture -->
+      <div class="div-card reveal d2" style="--dc:var(--c-agri)">
+        <div class="div-top-bar"></div>
+        <div class="div-num">03</div>
+        <div class="div-icon">
+          <svg fill="none" stroke="var(--c-agri)" viewBox="0 0 24 24" stroke-width="1.5" width="24" height="24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3 class="div-name">Agriculture &amp; Agro-Allied Services</h3>
+        <p class="div-desc">From oil storage and cash crop production to livestock farming and agro-processing — building food system value chains across Nigeria.</p>
+        <ul class="div-services">
+          <li>Oil storage &amp; petroleum produce marketing</li>
+          <li>Cash crop farming &amp; production</li>
+          <li>Livestock farming</li>
+          <li>Agro-processing, packaging &amp; trading</li>
+        </ul>
+        <div class="div-badge"><div class="div-badge-dot"></div>Active Division</div>
+      </div>
+
+      <!-- 04 Lifestyle -->
+      <div class="div-card reveal" style="--dc:var(--c-life)">
+        <div class="div-top-bar"></div>
+        <div class="div-num">04</div>
+        <div class="div-icon">
+          <svg fill="none" stroke="var(--c-life)" viewBox="0 0 24 24" stroke-width="1.5" width="24" height="24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+        <h3 class="div-name">Lifestyle, Beauty &amp; Wellness</h3>
+        <p class="div-desc">Premium beauty, salon, and wellness services — catering to a discerning Nigerian clientele who value quality and self-care.</p>
+        <ul class="div-services">
+          <li>Salon &amp; barbing services</li>
+          <li>Spa &amp; wellness services</li>
+          <li>Beauty &amp; personal care</li>
+        </ul>
+        <div class="div-badge"><div class="div-badge-dot"></div>Active Division</div>
+      </div>
+
+      <!-- 05 Technology -->
+      <div class="div-card reveal d1" style="--dc:var(--c-tech)">
+        <div class="div-top-bar"></div>
+        <div class="div-num">05</div>
+        <div class="div-icon">
+          <svg fill="none" stroke="var(--c-tech)" viewBox="0 0 24 24" stroke-width="1.5" width="24" height="24"><path d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        </div>
+        <h3 class="div-name">Technology &amp; Consulting</h3>
+        <p class="div-desc">End-to-end technology solutions and strategic business consulting — supporting growth for Nigerian and international clients.</p>
+        <ul class="div-services">
+          <li>IT services &amp; infrastructure</li>
+          <li>Software development &amp; support</li>
+          <li>Tech consulting &amp; advisory</li>
+          <li>Business management consulting</li>
+        </ul>
+        <div class="div-badge"><div class="div-badge-dot"></div>Active Division</div>
+      </div>
+
+      <!-- 06 Energy -->
+      <div class="div-card reveal d2" style="--dc:var(--c-energy)">
+        <div class="div-top-bar"></div>
+        <div class="div-num">06</div>
+        <div class="div-icon">
+          <svg fill="none" stroke="var(--c-energy)" viewBox="0 0 24 24" stroke-width="1.5" width="24" height="24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <h3 class="div-name">Oil, Gas &amp; Energy Services</h3>
+        <p class="div-desc">Petroleum product marketing, gas plant operations, and energy solutions — delivering clean, reliable energy to residential and commercial customers.</p>
+        <ul class="div-services">
+          <li>Oil &amp; gas services</li>
+          <li>Petroleum product marketing &amp; distribution</li>
+          <li>Gas plant operations</li>
+          <li>Energy services &amp; solutions</li>
+        </ul>
+        <div class="div-badge"><div class="div-badge-dot"></div>Active Division</div>
+      </div>
+
+      <!-- 07 Education — spans full width -->
+      <div class="div-card reveal" style="--dc:var(--c-edu);grid-column:1 / -1">
+        <div class="div-top-bar"></div>
+        <div class="div-num">07</div>
+        <div class="div-icon">
+          <svg fill="none" stroke="var(--c-edu)" viewBox="0 0 24 24" stroke-width="1.5" width="24" height="24"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start">
+          <div>
+            <h3 class="div-name">Education Services</h3>
+            <p class="div-desc">Quality education from the ground up — operating nursery, primary, and secondary schools alongside dedicated training and educational programmes for Nigerian learners.</p>
+          </div>
+          <ul class="div-services" style="margin-top:0">
+            <li>Nursery, primary &amp; secondary school operations</li>
+            <li>Educational services &amp; training programmes</li>
+            <li>Academic support &amp; enrichment services</li>
+          </ul>
+        </div>
+        <div class="div-badge"><div class="div-badge-dot"></div>Active Division</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── VALUES ────────────────────────────────── -->
+<section class="vals-section" id="values">
+  <div class="container">
+    <div class="label reveal"><span>Our Foundation</span></div>
+    <h2 class="section-title dark reveal d1" style="color:var(--navy)">What Drives<br/><em style="font-style:italic;color:var(--gold)">Everything We Do</em></h2>
+    <div class="vals-grid">
+
+      <div class="val-card reveal">
+        <div class="val-icon">
+          <svg fill="none" stroke="var(--gold)" viewBox="0 0 24 24" stroke-width="1.5" width="36" height="36"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        </div>
+        <h3>Integrity</h3>
+        <p>Every transaction and every relationship is built on transparency and accountability. We do what is right even when no one is watching.</p>
+      </div>
+
+      <div class="val-card reveal d1">
+        <div class="val-icon">
+          <svg fill="none" stroke="var(--gold)" viewBox="0 0 24 24" stroke-width="1.5" width="36" height="36"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+        </div>
+        <h3>Growth</h3>
+        <p>We reinvest into building more — more capacity, more sectors, more opportunity. Growth is not merely an ambition; it is our operating model.</p>
+      </div>
+
+      <div class="val-card reveal d2">
+        <div class="val-icon">
+          <svg fill="none" stroke="var(--gold)" viewBox="0 0 24 24" stroke-width="1.5" width="36" height="36"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </div>
+        <h3>People First</h3>
+        <p>Our team is our most important asset. We build careers, develop skills, and create an environment where people grow with the company.</p>
+      </div>
+
+      <div class="val-card reveal d3">
+        <div class="val-icon">
+          <svg fill="none" stroke="var(--gold)" viewBox="0 0 24 24" stroke-width="1.5" width="36" height="36"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+        </div>
+        <h3>Nigerian Excellence</h3>
+        <p>Incorporated here, managed here, building here. We are proud proof that world-class enterprise can be conceived, built, and scaled from Nigerian soil.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── LEADERSHIP ────────────────────────────── -->
+<section class="lead-section" id="leadership">
+  <div class="container">
+    <div class="label reveal"><span>Our Leadership</span></div>
+    <h2 class="section-title reveal d1">The Team<br/><em style="font-style:italic;color:var(--gold)">At the Helm</em></h2>
+    <div class="lead-inner">
+      <div class="lead-card reveal">
+        <div class="lead-avatar"><span>MC</span></div>
+        <h3>Michael Chidiebere Uwakwe</h3>
+        <div class="lead-role">Managing Director</div>
+        <p class="lead-quote">"Our mandate is clear — build something real, build something lasting, and ensure that every person on this team grows alongside the company."</p>
+      </div>
+      <div class="reveal d2">
+        <p style="font-size:17px;color:var(--text-dim);line-height:1.85;margin-bottom:28px">Jendy Jasper Limited is led by a dedicated Managing Director with full executive authority across all seven divisions. Our management structure is lean, accountable, and built for decisive action.</p>
+        <p style="font-size:17px;color:var(--text-dim);line-height:1.85;margin-bottom:48px">All operational decisions, commercial agreements, and strategic direction are driven from within Nigeria — ensuring genuine economic substance and local accountability at every level.</p>
+        <div class="lead-facts">
+          <div class="lf">
+            <div class="lf-icon">
+              <svg fill="none" stroke="var(--gold)" viewBox="0 0 24 24" stroke-width="1.5" width="18" height="18"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </div>
+            <div><h4>Full Regulatory Compliance</h4><p>CAC registered · FIRS compliant · CAMA 2020 governed</p></div>
+          </div>
+          <div class="lf">
+            <div class="lf-icon">
+              <svg fill="none" stroke="var(--gold)" viewBox="0 0 24 24" stroke-width="1.5" width="18" height="18"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            </div>
+            <div><h4>Physical Operations</h4><p>Real offices, warehousing, and infrastructure in Imo State</p></div>
+          </div>
+          <div class="lf">
+            <div class="lf-icon">
+              <svg fill="none" stroke="var(--gold)" viewBox="0 0 24 24" stroke-width="1.5" width="18" height="18"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            </div>
+            <div><h4>Seven Active Divisions</h4><p>Diversified across trading, technology, energy, agriculture, and more</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ────────────────────────────────── -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="label reveal"><span>Work With Us</span></div>
+    <h2 class="section-title reveal d1">Get in<br/><em style="font-style:italic;color:var(--gold)">Touch</em></h2>
+    <div class="contact-grid">
+      <div class="reveal d1">
+        <p class="contact-intro">Whether you are a client, business partner, or prospective collaborator — we would be glad to hear from you. Reach out through the form or contact us directly.</p>
+        <div class="citem">
+          <div class="cicon">
+            <svg fill="none" stroke="var(--gold)" viewBox="0 0 24 24" stroke-width="1.5" width="18" height="18"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <div><h4>Head Office</h4><p>Ikeduru LGA, Imo State, Nigeria</p></div>
+        </div>
+        <div class="citem">
+          <div class="cicon">
+            <svg fill="none" stroke="var(--gold)" viewBox="0 0 24 24" stroke-width="1.5" width="18" height="18"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <div><h4>Email</h4><p><a href="mailto:info@jendyjasper.com">info@jendyjasper.com</a></p></div>
+        </div>
+        <div class="citem">
+          <div class="cicon">
+            <svg fill="none" stroke="var(--gold)" viewBox="0 0 24 24" stroke-width="1.5" width="18" height="18"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          </div>
+          <div><h4>Phone</h4><p>+234 ___ ___ ____</p></div>
+        </div>
+        <div class="citem">
+          <div class="cicon">
+            <svg fill="none" stroke="var(--gold)" viewBox="0 0 24 24" stroke-width="1.5" width="18" height="18"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div><h4>Business Hours</h4><p>Monday – Friday &nbsp;|&nbsp; 8:00am – 5:00pm WAT</p></div>
+        </div>
+      </div>
+
+      <form action="https://api.web3forms.com/submit" method="POST">
+      <div class="cform reveal d2">
+        <input type="hidden" name="access_key" value="a581fc14-460b-4a42-83dc-9dae7bf467b9">
+        <div class="frow">
+          <div class="fg"><label>First Name</label><input type="text" name="name" placeholder="Emeka Okafor" required/></div>
+          <!-- <div class="fg"><label>Last Name</label><input type="text" name="name" placeholder="Okafor" required/></div> -->
+        </div>
+        <div class="fg"><label>Email Address</label><input type="email" name="email" placeholder="emeka@company.com" required/></div>
+        <div class="fg">
+          <label>Division of Interest</label>
+          <select name="service" required>
+            <option value="">Select a division</option>
+            <option>General Trading &amp; Merchandise</option>
+            <option>Automobile &amp; Auto Services</option>
+            <option>Agriculture &amp; Agro-Allied</option>
+            <option>Lifestyle, Beauty &amp; Wellness</option>
+            <option>Technology &amp; Consulting</option>
+            <option>Oil, Gas &amp; Energy</option>
+            <option>Education Services</option>
+            <option>General Enquiry</option>
+            <option>Partnership / Investment</option>
+          </select>
+        </div>
+        <div class="fg"><label>Message</label><textarea name="message" placeholder="Tell us about your enquiry..."></textarea></div>
+        <button type="submit" class="fsub" id="send-btn">Send Message</button>
+      </div>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div style="display:inline-flex;align-items:center;gap:14px">
+          <svg width="38" height="38" viewBox="0 0 60 60" fill="none">
+            <path d="M14 34C14 20 23 11 30 14C34.5 15.5 36.5 21 34 29" stroke="white" stroke-width="5.5" stroke-linecap="round" opacity="0.85"/>
+            <path d="M46 34C46 20 37 11 30 14C25.5 15.5 23.5 21 26 29" stroke="white" stroke-width="5.5" stroke-linecap="round" opacity="0.85"/>
+            <path d="M20 48C24 55 30 58 30 48C30 42 30 35 30 29" stroke="#C9A84C" stroke-width="5.5" stroke-linecap="round"/>
+          </svg>
+          <div class="logo-text">JENDY JASPER<em>LIMITED</em></div>
+        </div>
+        <p>A diversified Nigerian enterprise operating across seven business sectors — building sustainable value across the industries that power everyday life.</p>
+        <div class="footer-tagline">Diversified. Driven. Built to Last.</div>
+      </div>
+
+      <div class="fcol">
+        <h4>Divisions</h4>
+        <ul>
+          <li><a href="#divisions">General Trading</a></li>
+          <li><a href="#divisions">Automobile</a></li>
+          <li><a href="#divisions">Agriculture</a></li>
+          <li><a href="#divisions">Lifestyle &amp; Wellness</a></li>
+          <li><a href="#divisions">Technology</a></li>
+          <li><a href="#divisions">Oil, Gas &amp; Energy</a></li>
+          <li><a href="#divisions">Education</a></li>
+        </ul>
+      </div>
+
+      <div class="fcol">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#values">Our Values</a></li>
+          <li><a href="#leadership">Leadership</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="fcol">
+        <h4>Compliance</h4>
+        <ul>
+          <li><a href="#">CAC Registered</a></li>
+          <li><a href="#">FIRS Tax Compliant</a></li>
+          <li><a href="#">CAMA 2020</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bot">
+      <p>&copy; 2026 Jendy Jasper Limited. All rights reserved. Incorporated in Nigeria.</p>
+      <span>Ikeduru LGA, Imo State, Nigeria</span>
+    </div>
+  </div>
+  <div class="footer-gold-bar"></div>
+</footer>
+
+<!-- Link Javascript -->
+<script src="new.js"></script>
 </body>
 </html>
