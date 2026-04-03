@@ -69,9 +69,9 @@ if (json.success) {
   const countdown = setInterval(() =>{
     seconds--;
     document.getElementById('countdown').textContent = seconds;
-    if (seconds < 1) {
+    if (seconds <= 0) {
       clearInterval(countdown);
-      window.location.href = 'index.html'
+      window.location.href = '/index.html'
     }
   }, 1000);
 }
