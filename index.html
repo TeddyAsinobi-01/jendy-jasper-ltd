@@ -432,8 +432,10 @@
         </div>
         <div class="fg"><label>Message</label><textarea name="message" placeholder="Tell us about your enquiry..."></textarea></div>
         <form method="POST">
-          <div class="h-captcha" data-sitekey="e23cfd6e-f230-4432-87c8-2f608bc0b058" id="signupCaptcha"></div>
+          <h-captcha class="h-captcha" size="normal" id="signupCaptcha"
+          tabindex="0" data-sitekey="e23cfd6e-f230-4432-87c8-2f608bc0b058" ></h-captcha>
         </form>
+        
         <input type="hidden" name="hcaptcha_secret" value="ES_54fa95cfc8de4fef84a1995b71025082">
         <button type="submit" class="fsub" id="send-btn">Send Message</button>
       </div>
