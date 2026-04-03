@@ -6,7 +6,8 @@
 <title>Jendy Jasper Limited — Diversified Nigerian Enterprise</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="new.css">
-<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+<!-- <script src="https://js.hcaptcha.com/1/api.js" async defer></script> -->
+<script src="https://cdn.jsdelivr.net/npm/@hcaptcha/vanilla-hcaptcha"></script>
 </head>
 <body>
 
@@ -430,13 +431,16 @@
           </select>
         </div>
         <div class="fg"><label>Message</label><textarea name="message" placeholder="Tell us about your enquiry..."></textarea></div>
-        <div class="h-captcha" data-sitekey="e23cfd6e-f230-4432-87c8-2f608bc0b058"></div>
-        <input type="hidden" name="hcaptcha_secret" value="ES_54fa95cfc8de4fef84a1995b71025082">
+        <form method="POST">
+          <div class="h-captcha" data-sitekey="e23cfd6e-f230-4432-87c8-2f608bc0b058"></div>
+          <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+        </form>
+        <input type="hidden" name="hcaptcha_secret" value="ES_54fa95cfc8de4fef84a1995b71025082" id="signupCaptcha">
         <button type="submit" class="fsub" id="send-btn">Send Message</button>
       </div>
       </form>
       
-
+      
     </div>
   </div>
 </section>
@@ -502,5 +506,7 @@
 
 <!-- Link Javascript -->
 <script src="new.js"></script>
+<py-script src="myscript.py"></py-script>
+
 </body>
 </html>

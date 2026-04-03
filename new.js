@@ -75,7 +75,16 @@ if (json.success) {
     }
   }, 1000);
 }
+//Captcha cont.
 
+const signupCaptcha = document.getElementById('signupCaptcha');
+
+    signupCaptcha.addEventListener('verified', (e) => {
+        console.log('verified event', {token: e.token});
+    });
+    signupCaptcha.addEventListener('error', (e) => {
+        console.log('error event', {error: e.error});
+    });
 // ─── MOBILE NAV TOGGLE
 document.getElementById('ham').addEventListener('click', () => {
   const links = document.querySelector('.nav-links');
