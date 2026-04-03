@@ -59,6 +59,23 @@ form.addEventListener('submit', async (e) => {
         submitBtn.disabled = false;
     }
 });
+//Auto-Redirect After 60 Seconds
+
+if (json.success) {
+  result.innerHTML = 'Message sent! Redirecting to home in <span id="countdown">60</span>s...';
+  form.reset();
+
+  let seconds = 60;
+  const countdown = setInterval(() =>{
+    seconds--;
+    document.getElementById('countdown').textContent = seconds;
+    if (seconds < 1) {
+      clearInterval(countdown);
+      window.location.href = 'index.html'
+    }
+  }, 1000);
+}
+
 // ─── MOBILE NAV TOGGLE
 document.getElementById('ham').addEventListener('click', () => {
   const links = document.querySelector('.nav-links');

@@ -6,6 +6,7 @@
 <title>Jendy Jasper Limited — Diversified Nigerian Enterprise</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="new.css">
+<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 </head>
 <body>
 
@@ -98,7 +99,7 @@
   <div class="container">
     <div class="about-grid">
       <div class="about-visual reveal">
-        <div class="av-main">
+        <!-- <div class="av-main">
           <div class="av-main-inner">
             <h3>Imo State, Nigeria</h3>
             <p>Headquarters &mdash; Ikeduru LGA</p>
@@ -111,15 +112,16 @@
         <div class="av-white">
           <div class="av-white-num">2026</div>
           <div class="av-white-label">Established</div>
-        </div>
-      </div>
-
-      <div class="reveal d2">
+        </div> -->
         <div class="label"><span>Who We Are</span></div>
         <h2 class="section-title dark" style="color:var(--navy)">A Conglomerate<br/><em style="font-style:italic;color:var(--gold)">Built for Africa</em></h2>
         <p class="section-body dark" style="margin-bottom:36px">Jendy Jasper Limited is a duly incorporated Nigerian enterprise operating across seven distinct business sectors. Our structure is deliberately diversified — enabling us to deploy capital, talent, and operational capacity across multiple industries simultaneously.</p>
         <p class="section-body dark" style="margin-bottom:48px">Registered under CAMA 2020, fully compliant with all relevant regulatory bodies, and headquartered in Imo State, we are building enterprise infrastructure that creates lasting value in the Nigerian economy.</p>
 
+      </div>
+
+      <div class="reveal d2">
+        
         <div class="about-pillars">
           <div class="pillar">
             <div class="pillar-num">01</div>
@@ -196,9 +198,9 @@
           <svg fill="none" stroke="var(--c-agri)" viewBox="0 0 24 24" stroke-width="1.5" width="24" height="24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
         <h3 class="div-name">Agriculture &amp; Agro-Allied Services</h3>
-        <p class="div-desc">From oil storage and cash crop production to livestock farming and agro-processing — building food system value chains across Nigeria.</p>
+        <p class="div-desc">From Palm oil storage and cash crop production to livestock farming and agro-processing — building food system value chains across Nigeria.</p>
         <ul class="div-services">
-          <li>Oil storage &amp; petroleum produce marketing</li>
+          <li>Palm Oil storage</li>
           <li>Cash crop farming &amp; production</li>
           <li>Livestock farming</li>
           <li>Agro-processing, packaging &amp; trading</li>
@@ -401,9 +403,12 @@
         </div>
       </div>
 
+      <!-- CONTACT, FORM -->
       <form action="https://api.web3forms.com/submit" method="POST">
+        <div class="h-captcha" data-sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be9"></div>
       <div class="cform reveal d2">
         <input type="hidden" name="access_key" value="a581fc14-460b-4a42-83dc-9dae7bf467b9">
+        <input type="hidden" name="redirect" value="false">
         <div class="frow">
           <div class="fg"><label>First Name</label><input type="text" name="name" placeholder="Emeka Okafor" required/></div>
           <!-- <div class="fg"><label>Last Name</label><input type="text" name="name" placeholder="Okafor" required/></div> -->
@@ -428,6 +433,7 @@
         <button type="submit" class="fsub" id="send-btn">Send Message</button>
       </div>
       </form>
+      
 
     </div>
   </div>
