@@ -61,20 +61,20 @@ form.addEventListener('submit', async (e) => {
 });
 //Auto-Redirect After 60 Seconds
 
-// if (json.success) {
-//   result.innerHTML = 'Message sent! Redirecting to home in <span id="countdown">60</span>s...';
-//   form.reset();
+if (json.success) {
+  result.innerHTML = 'Message sent! Redirecting to home in <span id="countdown">60</span>s...';
+  form.reset();
 
-//   let seconds = 60;
-//   const countdown = setInterval(() =>{
-//     seconds--;
-//     document.getElementById('countdown').textContent = seconds;
-//     if (seconds <= 0) {
-//       clearInterval(countdown);
-//       window.location.href = 'https://teddyasinobi-01.github.io/jendy-jasper-ltd/'
-//     }
-//   }, 1000);
-// }
+  let seconds = 60;
+  const countdown = setInterval(() =>{
+    seconds--;
+    document.getElementById('countdown').textContent = seconds;
+    if (seconds <= 0) {
+      clearInterval(countdown);
+      window.location.href = 'https://teddyasinobi-01.github.io/jendy-jasper-ltd/'
+    }
+  }, 1000);
+}
 //Captcha cont.
 
 const signupCaptcha = document.getElementById('signupCaptcha');
