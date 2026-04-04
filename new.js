@@ -85,21 +85,9 @@ const signupCaptcha = document.getElementById('signupCaptcha');
     signupCaptcha.addEventListener('error', (e) => {
         console.log('error event', {error: e.error});
     });
-    // Client side verification of captcha
+
+
     
-      const form = document.getElementById('contact-form');
-      
-      form.addEventListener('submit', function(e) {
-      
-          const hCaptcha = form.querySelector('textarea[name=h-captcha-response]').value;
-      
-          if (!hCaptcha) {
-              e.preventDefault();
-              alert("Please fill out captcha field")
-              return
-          }
-      });
-      
 // ─── MOBILE NAV TOGGLE
 document.getElementById('ham').addEventListener('click', () => {
   const links = document.querySelector('.nav-links');
@@ -121,3 +109,16 @@ document.getElementById('ham').addEventListener('click', () => {
     links.style.fontSize = '18px';
   }
 });
+// CAPTCHA CONT.
+// const newform = document.getElementById('contact-form');
+
+// newform.addEventListener('submit', function(e) {
+
+//     const hCaptcha = newform.querySelector('textarea[name=h-captcha-response]').value;
+
+//     if (!hCaptcha) {
+//         e.preventDefault();
+//         alert("Please fill out captcha field")
+//         return
+//     }
+// });
