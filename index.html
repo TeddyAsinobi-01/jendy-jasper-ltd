@@ -6,8 +6,7 @@
 <title>Jendy Jasper Limited — Diversified Nigerian Enterprise</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="new.css">
-<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
-<script src="https://cdn.jsdelivr.net/npm/@hcaptcha/vanilla-hcaptcha"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/@hcaptcha/vanilla-hcaptcha"></script> -->
 </head>
 <body>
 
@@ -405,7 +404,7 @@
       </div>
 
       <!-- CONTACT, FORM -->
-      <form action="https://api.web3forms.com/submit">
+      <form action="https://api.web3forms.com/submit" method="POST" id="contact-form">
        
       <div class="cform reveal d2">
         <input type="hidden" name="access_key" value="a581fc14-460b-4a42-83dc-9dae7bf467b9">
@@ -431,13 +430,14 @@
           </select>
         </div>
         <div class="fg"><label>Message</label><textarea name="message" placeholder="Tell us about your enquiry..."></textarea></div>
-        <form method="POST">
-          <h-captcha class="h-captcha" size="normal" id="signupCaptcha"
+        <!-- connect Web3forms to Captcha  Step 1: Add this line -->
+        <div class="h-captcha" data-captcha="true"></div>  
+        <!-- BOT / SPAM PROTECTION -->
+        <h-captcha class="h-captcha" size="normal" id="signupCaptcha"
           tabindex="0" data-sitekey="e23cfd6e-f230-4432-87c8-2f608bc0b058" ></h-captcha>
         <input type="hidden" name="hcaptcha_secret" value="ES_54fa95cfc8de4fef84a1995b71025082">
+        <!-- SEND BUTTON -->
         <button type="submit" class="fsub" id="send-btn">Send Message</button>
-        </form>
-        
         
       </div>
       </form>
@@ -508,6 +508,10 @@
 
 <!-- Link Javascript -->
 <script src="new.js"></script>
+<!-- Link Captcha -->
+<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+<!-- Step 2: Add the Web3Forms script -->
+<script src="https://web3forms.com/client/script.js" async defer></script>
 
 </body>
 </html>
