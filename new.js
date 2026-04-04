@@ -110,15 +110,15 @@ document.getElementById('ham').addEventListener('click', () => {
   }
 });
 // CAPTCHA CONT.
-// const newform = document.getElementById('contact-form');
+const newform = document.getElementById('contact-form');
 
-// newform.addEventListener('submit', function(e) {
+newform.addEventListener('submit', function(e) {
 
-//     const hCaptcha = newform.querySelector('textarea[name=h-captcha-response]').value;
+    const hCaptcha = newform.querySelector('textarea[name=h-captcha-response]').value;
 
-//     if (!hCaptcha) {
-//         e.preventDefault();
-//         alert("Please fill out captcha field")
-//         return
-//     }
-// });
+    if (!hCaptcha) {
+        e.preventDefault();
+        alert("Please fill out captcha field")
+        return
+    }
+});
