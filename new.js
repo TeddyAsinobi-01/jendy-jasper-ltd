@@ -75,6 +75,25 @@ if (json.success) {
     }
   }, 1000);
 }
+//Refresh The site after submission
+
+window.addEventListener("load", function () {
+
+  // Check if Formspree submission was successful
+  if (window.location.search.includes("success=true")) {
+
+    // Wait 5 seconds
+    setTimeout(function () {
+
+      // Redirect to homepage
+      window.location.href = "index.html";
+
+    }, 5000);
+
+  }
+
+});
+
 //Captcha cont.
 
 const signupCaptcha = document.getElementById('signupCaptcha');
