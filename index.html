@@ -403,19 +403,22 @@
       </div>
 
       <!-- CONTACT, FORM -->
-      <form action="https://api.web3forms.com/submit" method="POST" id="contact-form">
-       
+      <!--  -->
+      <form action="https://formspree.io/f/mkoppjke" method="POST" id="contact-form">
       <div class="cform reveal d2">
-        <input type="hidden" name="access_key" value="a581fc14-460b-4a42-83dc-9dae7bf467b9">
+        <div data-fs-success></div>
+      <div data-fs-error></div>
+        <!-- <input type="hidden" name="access_key" value="a581fc14-460b-4a42-83dc-9dae7bf467b9"> -->
         <input type="hidden" name="redirect" value="false">
         <div class="frow">
-          <div class="fg"><label>Full Name</label><input type="text" name="name" placeholder="Emeka Okafor" required/></div>
+          <div class="fg"><label>Full Name</label><input type="text" name="name" placeholder="Emeka Okafor" data-fs-field required/></div>
           <!-- <div class="fg"><label>Last Name</label><input type="text" name="name" placeholder="Okafor" required/></div> -->
         </div>
-        <div class="fg"><label>Email Address</label><input type="email" name="email" placeholder="emeka@company.com" required/></div>
+        <!-- <label for="email">Email</label> -->
+        <div class="fg"><label>Email Address</label><input type="email" name="email" placeholder="emeka@company.com" data-fs-field required/></div>
         <div class="fg">
           <label>Division of Interest</label>
-          <select name="service" required>
+          <select name="service"  data-fs-field required>
             <option value="">Select a division</option>
             <option>General Trading &amp; Merchandise</option>
             <option>Automobile &amp; Auto Services</option>
@@ -428,7 +431,7 @@
             <option>Partnership / Investment</option>
           </select>
         </div>
-        <div class="fg"><label>Message</label><textarea name="message" placeholder="Tell us about your enquiry..."></textarea></div>
+        <div class="fg"><label>Message</label><textarea name="message" data-fs-field placeholder="Tell us about your enquiry..."></textarea></div>
         <!-- connect Web3forms to Captcha  Step 1: Add this line -->
         <div class="h-captcha" data-captcha="true"></div>  
         <!-- BOT / SPAM PROTECTION -->
@@ -436,7 +439,7 @@
           tabindex="0" data-sitekey="e23cfd6e-f230-4432-87c8-2f608bc0b058" ></h-captcha> -->
         <input type="hidden" name="hcaptcha_secret" value="ES_54fa95cfc8de4fef84a1995b71025082">
         <!-- SEND BUTTON -->
-        <button type="submit" class="fsub" id="send-btn">Send Message</button>
+        <button type="submit" class="fsub" data-fs-submit-btn id="send-btn">Send Message</button>
         
       </div>
       </form>
@@ -510,7 +513,11 @@
 <!-- Link Captcha -->
 <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 <!-- Step 2: Add the Web3Forms script -->
-<script src="https://web3forms.com/client/script.js" async defer></script>
+<script>
+  window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+  formspree('initForm', { formElement: '#my-form', formId: 'mkoppjke' });
+</script>
+<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 
 </body>
 </html>
