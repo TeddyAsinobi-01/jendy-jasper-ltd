@@ -80,7 +80,7 @@ if (json.success) {
 window.addEventListener("load", function () {
 
   // Check if Formspree submission was successful
-  if (window.location.search.includes("success=true")) {
+  if (window.location.search.includes("/thanks")) {
 
     // Wait 5 seconds
     setTimeout(function () {
