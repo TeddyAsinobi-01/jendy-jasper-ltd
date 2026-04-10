@@ -141,3 +141,22 @@ newform.addEventListener('submit', function(e) {
         return
     }
 });
+//redirect
+const forms = document.getElementById('contactForm');
+
+forms.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const data = new FormData(forms);
+
+    const response = await fetch(forms.action, {
+      method: 'POST',
+      body: data,
+      headers: {'Accept':'application/json'}
+    });
+    if (response.ok) {
+      forms.reset();
+      window.location.href = 'thankyou.html'
+    }else{
+      alert('Something went TERRIBLY wrong, Please try again');
+    }
+});
