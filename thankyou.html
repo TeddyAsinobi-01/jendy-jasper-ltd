@@ -1,20 +1,88 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
   <title>Thank You</title>
+  <link rel="stylesheet" href="new.css">
+  <link rel="stylesheet" href="thanks.css">
 </head>
 
 <body>
-
-  <h2>Message sent successfully! ✔</h2>
-  <p>
+<div class="thnkmsg">
+  <div class="msgcnts">
+  <h1 class="line-gold">Message sent Successfully! ✔</h1>
+  <p class="one">
       Thank You for reaching Out, we will get back to you shortly.
   </p>
-  <p>Redirecting to homepage in <span id="countdown"> 5 </span>  seconds...</p>
-  <a href="index.html">Go Back Now</a>
+  <p class="hero-sub">Redirecting to homepage in <span id="countdown"> 5 </span>  seconds...</p>
+  
+  <div class="back"><a href="index.html">Go Back Now</a></div>
+</div>
+</div> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Message Sent — Thank You</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="new.css">
+  <link rel="stylesheet" href="thanks.css">
+ 
+</head>
+<body>
 
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
 
-  <script>
+  <div class="page">
+    <div class="card">
+
+      <div class="envelope-wrap">
+        <div class="envelope">
+          <div class="env-body">
+            <div class="env-flap"></div>
+            <div class="env-bottom-l"></div>
+            <div class="env-bottom-r"></div>
+          </div>
+        </div>
+        <div class="check-circle">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+      </div>
+
+      <p class="eyebrow">Message Received</p>
+
+      <h1>Thank <em>you</em><br>for reaching out</h1>
+
+      <div class="divider"></div>
+
+      <p class="body">
+        We've received your message and will be in touch with you shortly. We appreciate you taking the time to connect with us.
+      </p>
+
+      <div class="timer-wrap">
+        <div class="ring-container">
+          <svg class="ring-svg" width="52" height="52" viewBox="0 0 52 52">
+            <circle class="ring-bg" cx="26" cy="26" r="22"/>
+            <circle class="ring-progress" id="ringProgress" cx="26" cy="26" r="22"/>
+          </svg>
+          <span class="ring-number" id="countdownNum">5</span>
+        </div>
+        <span class="timer-label">Redirecting to homepage</span>
+      </div>
+
+      <a href="index.html" class="btn" id="homeBtn"><span>Return Home Now</span></a>
+
+    </div>
+  </div>
+
+  
+
+</body>
+</html>
+  <!-- <script>
     let seconds = 5;
     setInterval(()=>{
       seconds --;
@@ -23,7 +91,8 @@
         window.location.href = 'index.html';
       }
     }, 1000)
-  </script>
+  </script> -->
 
+  <script src="thanks.js"></script>
 </body>
 </html>
