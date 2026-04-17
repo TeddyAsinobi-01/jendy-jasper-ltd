@@ -1,3 +1,27 @@
+//Rate limiter
+function checkRateLimit(email) {
+  const key = 'form_submissions';
+  const now = Date.now();
+  const oneHour = 60 * 60 * 1000;
+
+  // Get existing submissions from localStorage
+  let submissions = JSON.parse(localStorage.getItem(key) || '[]');
+
+  // Remove entries older than 1 hour
+  submissions = submissions.filter(s => now - s.timestamp < oneHour);
+
+  // Check if this email has hit the limit
+  const emailCount = submissions.filter(s => s.email === email).length;
+
+  if (emailCount >= 5) {
+    return false; // blocked
+  }
+
+  // Log this submission
+  submissions.push({ email, timestamp: now });
+  localStorage.setItem(key, JSON.stringify(submissions));
+  return true; // allowed
+}
 
 // ─── NAV SCROLL
 const nav = document.getElementById('nav');
@@ -28,6 +52,14 @@ const submitBtn = form.querySelector('button[type="submit"]');
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    const email = form.querySelector('[name="email"]').value;
+
+    //  Check rate limit first
+    if (!checkRateLimit(email)) {
+      alert(' You have reached the maximum of 5 submissions per hour. Please try again later.');
+      return;
+    }
 
     const formData = new FormData(form);
     formData.append("access_key", "a581fc14-460b-4a42-83dc-9dae7bf467b9");
