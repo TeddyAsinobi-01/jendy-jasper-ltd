@@ -63,9 +63,9 @@ if (contactForm) {
     e.preventDefault();
 
     // === RATE LIMIT CHECK ===
-    const check = rateLimiter.canSubmit();
-    if (!check.allowed) {
-      alert(check.message);
+    const rateCheck = rateLimiter.canSubmit();
+    if (!rateCheck.allowed) {
+      alert(rateCheck.message);
       return;
     }
 
@@ -80,9 +80,8 @@ if (contactForm) {
 
     try {
       const formData = new FormData(this);
-      formData.append("access_key", "a581fc14-460b-4a42-83dc-9dae7bf467b9");   // Your Web3Forms key
 
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch(this.action, {
         method: "POST",
         body: formData
       });
@@ -103,7 +102,8 @@ if (contactForm) {
         // }, 2000);
 
       } else {
-        alert(data.message || "Error submitting form. Please try again.");
+        const text = await response.text();
+        alert("submission failed"+ (text || "Error submitting form. Please try again."));
       }
     } catch (error) {
       console.error("Submission error:", error);
