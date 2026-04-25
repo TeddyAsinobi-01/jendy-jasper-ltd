@@ -167,17 +167,17 @@ document.getElementById('ham')?.addEventListener('click', () => {
 });
 
 // CAPTCHA (your existing code)
-// const newform = document.getElementById('contact-form');
-// if (newform) {
-//   newform.addEventListener('submit', function(e) {
-//     const hCaptcha = newform.querySelector('textarea[name="h-captcha-response"]')?.value;
-//     if (!hCaptcha) {
-//       e.preventDefault();
-//       alert("Please complete the captcha");
-//       return;
-//     }
-//   });
-// }
+const newform = document.getElementById('contact-form');
+if (newform) {
+  newform.addEventListener('submit', function(e) {
+    const hCaptcha = newform.querySelector('textarea[name="h-captcha-response"]')?.value;
+    if (!hCaptcha) {
+      e.preventDefault();
+      alert("Please complete the captcha");
+      return;
+    }
+  });
+}
 
 // You can keep or remove the other form listeners (redirect, Formspree, etc.) 
 // as they seem to be from previous experiments. The main one above should now handle it.
