@@ -69,7 +69,7 @@ if (contactForm) {
       return;
     }
 
-    const submitBtn = this.querySelector('button[type="submit"]');
+    const submitBtn = this.querySelector(`button[type="submit"]`);
     const originalText = submitBtn ? submitBtn.textContent : 'Send Message';
 
     // Disable button and show loading state
@@ -105,10 +105,12 @@ if (contactForm) {
         const text = await response.text();
         alert("submission failed"+ (text || "Error submitting form. Please try again."));
       }
-    } catch (error) {
-      console.error("Submission error:", error);
-      alert("Network error. Please check your connection and try again.");
-    } finally {
+    }
+    // catch (error) {
+    //   console.error("Submission error:", error);
+    //   alert("Network error. Please check your connection and try again.");
+    // }
+    finally {
       // Restore button
       if (submitBtn) {
         submitBtn.textContent = originalText;
