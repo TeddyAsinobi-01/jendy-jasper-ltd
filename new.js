@@ -54,25 +54,33 @@ class FormRateLimiter {
 }
 
 // ====================== CONTACT FORM HANDLER ======================
-const rateLimiter = new FormRateLimiter(5, 60 * 60 * 1000); // 5 per hour
+// ====================== CONTACT FORM HANDLER ======================
+const rateLimiter = new FormRateLimiter(5, 60 * 60 * 1000);
 
-const contactForm = document.getElementById('contact-form');   // Make sure your form has id="contact-form"
+const contactForm = document.getElementById('contact-form');
 
 if (contactForm) {
   contactForm.addEventListener('submit', async function (e) {
     e.preventDefault();
 
-    // === RATE LIMIT CHECK ===
-    const rateCheck = rateLimiter.canSubmit();
-    if (!rateCheck.allowed) {
-      alert(rateCheck.message);
+    // === 1. CAPTCHA CHECK ===
+    const hCaptcha = this.querySelector('textarea[name="h-captcha-response"]');
+    if (hCaptcha && !hCaptcha.value) {
+      alert("Please complete the captcha verification.");
       return;
     }
 
+    // === 2. RATE LIMIT CHECK ===
+    const check = rateLimiter.canSubmit();
+    if (!check.allowed) {
+      alert(check.message);
+      return;
+    }
+
+    // === 3. SUBMIT ===
     const submitBtn = this.querySelector('button[type="submit"]');
     const originalText = submitBtn ? submitBtn.textContent : 'Send Message';
 
-    // Disable button and show loading state
     if (submitBtn) {
       submitBtn.textContent = 'Sending...';
       submitBtn.disabled = true;
@@ -80,8 +88,9 @@ if (contactForm) {
 
     try {
       const formData = new FormData(this);
+      formData.append("access_key", "a581fc14-460b-4a42-83dc-9dae7bf467b9");
 
-      const response = await fetch(this.action, {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         body: formData
       });
@@ -89,29 +98,17 @@ if (contactForm) {
       const data = await response.json();
 
       if (response.ok && data.success) {
-        // Record successful submission for rate limiting
         rateLimiter.recordSubmission();
-
-        alert("Success! Your message has been sent.");
-
-        this.reset();   // Clear the form
-
-        // Optional: Auto redirect after success (you can adjust or remove)
-        // setTimeout(() => {
-        //   window.location.href = 'https://teddyasinobi-01.github.io/jendy-jasper-ltd/';
-        // }, 2000);
-
+        this.reset();
+        window.location.href = 'thankyou.html';
       } else {
-        const text = await response.text();
-        alert("submission failed"+ (text || "Error submitting form. Please try again."));
+        alert(data.message || "Error submitting form. Please try again.");
       }
-    }
-    // catch (error) {
-    //   console.error("Submission error:", error);
-    //   alert("Network error. Please check your connection and try again.");
-    // }
-    finally {
-      // Restore button
+
+    } catch (error) {
+      console.error("Submission error:", error);
+      alert("Network error. Please check your connection and try again.");
+    } finally {
       if (submitBtn) {
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
@@ -119,20 +116,6 @@ if (contactForm) {
     }
   });
 }
-
-// ====================== hCAPTCHA CHECK ======================
-const newform = document.getElementById('contact-form');
-if (newform) {
-  newform.addEventListener('submit', function (e) {
-    const hCaptcha = newform.querySelector('textarea[name="h-captcha-response"]');
-    if (hCaptcha && !hCaptcha.value) {
-      e.preventDefault();
-      alert("Please complete the captcha verification");
-      return false;
-    }
-  });
-}
-
 // ====================== MOBILE NAV TOGGLE ======================
 document.getElementById('ham').addEventListener('click', () => {
   const links = document.querySelector('.nav-links');
@@ -154,3 +137,7 @@ document.getElementById('ham').addEventListener('click', () => {
     links.style.fontSize = '18px';
   }
 });
+
+// ====================== CLEANUP OLD CODE ======================
+// All old conflicting form handlers, auto-redirects, and unused code have been removed for cleanliness.
+// You can re-add specific redirect logic if needed.
