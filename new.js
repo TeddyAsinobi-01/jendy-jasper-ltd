@@ -116,6 +116,19 @@ if (contactForm) {
     }
   });
 }
+// ====================== hCAPTCHA CHECK ======================
+const newform = document.getElementById('contact-form');
+if (newform) {
+  newform.addEventListener('submit', function (e) {
+    const hCaptcha = newform.querySelector('textarea[name="h-captcha-response"]');
+    if (hCaptcha && !hCaptcha.value) {
+      e.preventDefault();
+      alert("Please complete the captcha verification");
+      return false;
+    }
+  });
+}
+
 // ====================== MOBILE NAV TOGGLE ======================
 document.getElementById('ham').addEventListener('click', () => {
   const links = document.querySelector('.nav-links');
