@@ -69,7 +69,7 @@ if (contactForm) {
       return;
     }
 
-    const submitBtn = this.querySelector(`button[type="submit"]`);
+    const submitBtn = this.querySelector('button[type="submit"]');
     const originalText = submitBtn ? submitBtn.textContent : 'Send Message';
 
     // Disable button and show loading state
