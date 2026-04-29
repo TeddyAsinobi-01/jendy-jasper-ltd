@@ -58,13 +58,15 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
           
           form.addEventListener('submit', async function (e) {
               e.preventDefault(); // REQUIRED: We are handling the submit via Fetch
-          
-              if (isRateLimited()) {
-                  alert("You have reached the submission limit. Please try again later.");
-                  return;
-              }
-          
-              const submitBtn = this.querySelector('button[type="submit"]');
+
+    // === RATE LIMIT CHECK ===
+    const rateCheck = rateLimiter.canSubmit();
+    if (!rateCheck.allowed) {
+      alert(rateCheck.message);
+      return;
+    }
+
+    const submitBtn = this.querySelector('button[type="submit"]');
     const originalText = submitBtn ? submitBtn.textContent : 'Send Message';
 
     // Disable button and show loading state
@@ -112,7 +114,9 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
         submitBtn.disabled = false;
       }
     }
-  });
+
+
+          });
 
 
 
