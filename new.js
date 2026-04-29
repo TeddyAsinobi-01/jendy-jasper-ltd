@@ -65,13 +65,13 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
               }
           
               // Capture hCaptcha only if you actually have it in your HTML
-              const hCaptcha = form.querySelector('textarea[name=h-captcha-response]')?.value;
+              // const hCaptcha = form.querySelector('textarea[name=h-captcha-response]')?.value;
               // Uncomment the lines below ONLY if you are using hCaptcha
               
-              if (!hCaptcha) {
-                  alert('Please complete the captcha.');
-                  return;
-              }
+              // if (!hCaptcha) {
+              //     alert('Please complete the captcha.');
+              //     return;
+              // }
               
           
               const originalText = submitBtn.textContent;
@@ -80,31 +80,31 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
           
               const formData = new FormData(form);
           
-              try {
-                  const response = await fetch("https://api.web3forms.com/submit", {
-                      method: "POST",
-                      body: formData
-                  });
+              // try {
+              //     const response = await fetch("https://api.web3forms.com/submit", {
+              //         method: "POST",
+              //         body: formData
+              //     });
           
-                  const data = await response.json();
+              //     const data = await response.json();
           
-                  if (response.ok) {
-                      recordSubmission();
-                      alert("Success! Your message has been sent.");
-                      form.reset();
-                      // Redirect to your thank you page
-                      window.location.href = "https://teddyasinobi-01.github.io/jendy-jasper-ltd/thankyou.html";
-                  } else {
-                      alert("Error: " + (data.message || "Something went wrong"));
-                      submitBtn.disabled = false;
-                      submitBtn.textContent = originalText;
-                  }
+              //     if (response.ok) {
+              //         recordSubmission();
+              //         alert("Success! Your message has been sent.");
+              //         form.reset();
+              //         // Redirect to your thank you page
+              //         window.location.href = "https://teddyasinobi-01.github.io/jendy-jasper-ltd/thankyou.html";
+              //     } else {
+              //         alert("Error: " + (data.message || "Something went wrong"));
+              //         submitBtn.disabled = false;
+              //         submitBtn.textContent = originalText;
+              //     }
           
-              } catch (error) {
-                  alert("Network error. Please check your connection and try again.");
-                  submitBtn.disabled = false;
-                  submitBtn.textContent = originalText;
-              }
+              // } catch (error) {
+              //     alert("Network error. Please check your connection and try again.");
+              //     submitBtn.disabled = false;
+              //     submitBtn.textContent = originalText;
+            //  }
           });
 
 
