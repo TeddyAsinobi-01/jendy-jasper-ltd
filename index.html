@@ -459,7 +459,7 @@
           <!-- Rate-limit warning -->
           <div id="rate-msg">You've reached the submission limit (6 per hour). Please try again later.</div>
           
-          <form id="contactForm" action="https://formsubmit.co/ibonisaledu@gmail.com" method="POST">
+          <form id="contactForm contactForm-2" action="https://formsubmit.co/ibonisaledu@gmail.com" method="POST">
             <input type="hidden" name="_subject" value="New submission!">
             <input type="hidden" name="_next"     value="https://teddyasinobi-01.github.io/jendy-jasper-ltd/thankyou.html">
             <div class="form-row">
@@ -475,7 +475,7 @@
             <!-- Email -->
             <div class="field">
               <label for="email">Email address</label>
-              <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email">
+              <input type="email" id="email emailInput" name="email" placeholder="you@example.com" required autocomplete="email">
             </div>
         
             <!-- Dropdown -->
@@ -505,7 +505,7 @@
         
             <div id="rate-msg-inline"></div>
             <!-- <div class="h-captcha" data-sitekey="a581fc14-460b-4a42-83dc-9dae7bf467b9"></div> -->
-            <button type="submit" class="form-btn" id="submitBtn">Send message</button>
+            <button type="submit" class="form-btn" id="submitBtn submitBtn-2">Send message</button>
           </form>
         </div>
         
@@ -599,6 +599,10 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
+// 3. Connect to your HTML elements
+const emailInput = document.getElementById('emailInput'); // Matches your id="email"
+  const submitBtn = document.getElementById('submitBtn-2'); // Matches your id="submitBtn"
+  const contactForm = document.getElementById('contactForm-2');
 
   // 3. Function to check the email in the database
   async function checkEmailLimit() {
@@ -611,31 +615,52 @@
     if (docSnap.exists()) {
       const data = docSnap.data();
       const now = Date.now();
-        const oneHour = 60 * 60 * 1000; // Time in milliseconds
-      // The "Cool Down" Check
+      const oneHour = 60 * 60 * 1000;
+
       if (data.count >= 5) {
-            const timePassed = now - data.lastUpdated;
-
-            if (timePassed < oneHour) {
-                // Still in the "Time Out" zone
-                const minsLeft = Math.ceil((oneHour - timePassed) / 60000);
-                submitBtn.disabled = true;
-                submitBtn.innerText = `Try again in ${minsLeft} mins`;
-            } else {
-                // Hour is up! Reset the count automatically
-                await updateDoc(docRef, { count: 0 });
-                submitBtn.disabled = false;
-                submitBtn.innerText = "Submit";
-            }
+        const timePassed = now - data.lastUpdated;
+        if (timePassed < oneHour) {
+          const minsLeft = Math.ceil((oneHour - timePassed) / 60000);
+          submitBtn.disabled = true;
+          submitBtn.innerText = `Limit Reached. Try in ${minsLeft}m`;
+        } else {
+          await updateDoc(docRef, { count: 0 });
+          submitBtn.disabled = false;
+          submitBtn.innerText = "Send Message";
         }
+      }
     }
-}
+  }
 
-  // Check whenever they finish typing their email
   emailInput.addEventListener('blur', checkEmailLimit);
 
-  // 4. Update the count when they successfully submit
-  
+  // 4. The Submit Event (The Gatekeeper)
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault(); // Stop form from sending to FormSubmit immediately
+
+    const email = emailInput.value.toLowerCase().trim();
+    const docRef = doc(db, "submissions", email);
+    const docSnap = await getDoc(docRef);
+
+    // Final check before sending
+    if (docSnap.exists() && docSnap.data().count >= 5) {
+      const timePassed = Date.now() - docSnap.data().lastUpdated;
+      if (timePassed < (60 * 60 * 1000)) {
+         alert("Submission limit reached. Please wait one hour.");
+         return; 
+      }
+    }
+
+    // Save to Firebase
+    if (!docSnap.exists()) {
+      await setDoc(docRef, { count: 1, lastUpdated: Date.now() });
+    } else {
+      await updateDoc(docRef, { count: increment(1), lastUpdated: Date.now() });
+    }
+
+    // NOW send to FormSubmit
+    contactForm.submit();
+  });
 </script>
 
 

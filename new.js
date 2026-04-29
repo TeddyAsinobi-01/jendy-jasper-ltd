@@ -1,182 +1,83 @@
 // ─── NAV SCROLL
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
-  nav.classList.toggle('solid', window.scrollY > 60);
+    nav.classList.toggle('solid', window.scrollY > 60);
 });
 
 // ─── REVEAL ON SCROLL
 const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) e.target.classList.add('visible');
-  });
+    entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+    });
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-// ====================== FORM RATE LIMITER ======================
-class FormRateLimiter {
-  constructor(maxAttempts = 5, windowMs = 60 * 60 * 1000) {
-    this.maxAttempts = maxAttempts;   // 5 enquiries per hour
-    this.windowMs = windowMs;
-    this.key = 'enquiry_form_submissions';
-  }
+// ─── FIREBASE & FORM HANDLER (The Gatekeeper)
+// Note: Ensure your Firebase Script Type="Module" is initialized before this or wrap this in the module
+import { getFirestore, doc, getDoc, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-  canSubmit() {
-    const now = Date.now();
-    let submissions = JSON.parse(localStorage.getItem(this.key) || '[]');
-
-    // Remove old submissions outside the 1-hour window
-    submissions = submissions.filter(time => now - time < this.windowMs);
-
-    if (submissions.length >= this.maxAttempts) {
-      const oldest = submissions[0];
-      const timeLeftMs = oldest + this.windowMs - now;
-      const timeLeftMinutes = Math.ceil(timeLeftMs / 1000 / 60);
-      const minuteText = timeLeftMinutes === 1 ? 'minute' : 'minutes';
-
-      return {
-        allowed: false,
-        message: `You have reached the maximum of ${this.maxAttempts} enquiries per hour. ` +
-                 `Please try again in about ${timeLeftMinutes} ${minuteText}.`
-      };
-    }
-
-    return { allowed: true };
-  }
-
-  recordSubmission() {
-    const now = Date.now();
-    let submissions = JSON.parse(localStorage.getItem(this.key) || '[]');
-    submissions = submissions.filter(time => now - time < this.windowMs);
-    submissions.push(now);
-    localStorage.setItem(this.key, JSON.stringify(submissions));
-  }
-}
-
-// ====================== CONTACT FORM HANDLER ======================
-const rateLimiter = new FormRateLimiter(5, 60 * 60 * 1000); // 5 per hour
-
-const contactForm = document.getElementById('contact-form');   // Make sure your form has id="contact-form"
+const db = getFirestore(); // Assumes Firebase is already initialized
+const contactForm = document.getElementById('contactForm'); // Match your HTML ID
+const emailInput = document.getElementById('email'); 
+const submitBtn = document.getElementById('submitBtn');
 
 if (contactForm) {
-  contactForm.addEventListener('submit', async function (e) {
-    e.preventDefault();
-// 1. Stop the form from sending immediately so we can check Firebase
+    contactForm.addEventListener('submit', async function (e) {
+        e.preventDefault(); // 1. STOP the form immediately
 
+        // // 2. CAPTCHA CHECK
+        // const hCaptcha = this.querySelector('textarea[name="h-captcha-response"]');
+        // if (hCaptcha && !hCaptcha.value) {
+        //     alert("Please complete the captcha verification");
+        //     return;
+        // }
 
-const email = emailInput.value.toLowerCase().trim();
-const docRef = doc(db, "submissions", email);
-const docSnap = await getDoc(docRef);
+        const email = emailInput.value.toLowerCase().trim();
+        const docRef = doc(db, "submissions", email);
+        const originalText = submitBtn.textContent;
 
-// 2. Run the Rate Limit Logic
-let currentCount = 0;
-if (docSnap.exists()) {
-    currentCount = docSnap.data().count;
+        try {
+            submitBtn.textContent = 'Checking...';
+            submitBtn.disabled = true;
+
+            // 3. FIREBASE RATE LIMIT CHECK
+            const docSnap = await getDoc(docRef);
+            const now = Date.now();
+            const oneHour = 60 * 60 * 1000;
+
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                if (data.count >= 5 && (now - data.lastUpdated < oneHour)) {
+                    const minsLeft = Math.ceil((oneHour - (now - data.lastUpdated)) / 60000);
+                    alert(`Limit reached. Please try again in ${minsLeft} minutes.`);
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                    return; // EXIT - DO NOT SEND
+                }
+            }
+
+            // 4. IF ALLOWED, UPDATE FIREBASE
+            if (!docSnap.exists() || (now - docSnap.data().lastUpdated >= oneHour)) {
+                await setDoc(docRef, { count: 1, lastUpdated: now });
+            } else {
+                await updateDoc(docRef, { count: increment(1), lastUpdated: now });
+            }
+
+            // 5. FINALLY, SEND TO FORMSUBMIT
+            submitBtn.textContent = 'Sending...';
+            contactForm.submit(); // This sends the form to formsubmit.co
+
+        } catch (error) {
+            console.error("Firebase Error:", error);
+            // If database fails, we let it send anyway so you don't lose customers
+            contactForm.submit();
+        }
+    });
 }
 
-if (currentCount >= 5) {
-    alert("You have reached the limit of 5 submissions.");
-    submitBtn.disabled = true;
-    return; // Stop everything here!
-}
-
-// 3. Update Firebase count
-if (!docSnap.exists()) {
-    await setDoc(docRef, { count: 1, lastUpdated: Date.now() });
-} else {
-    await updateDoc(docRef, { count: increment(1), lastUpdated: Date.now() });
-}
-    // === RATE LIMIT CHECK ===
-    const rateCheck = rateLimiter.canSubmit();
-    if (!rateCheck.allowed) {
-      alert(rateCheck.message);
-      return;
-    }
-
-    const submitBtn = this.querySelector('button[type="submit"]');
-    const originalText = submitBtn ? submitBtn.textContent : 'Send Message';
-
-    // Disable button and show loading state
-    if (submitBtn) {
-      submitBtn.textContent = 'Sending...';
-      submitBtn.disabled = true;
-    }
-
-    try {
-      const formData = new FormData(this);
-
-      const response = await fetch(this.action, {
-        method: "POST",
-        body: formData
-      });
-
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        // Record successful submission for rate limiting
-        rateLimiter.recordSubmission();
-
-        alert("Success! Your message has been sent.");
-
-        this.reset();   // Clear the form
-
-        // Optional: Auto redirect after success (you can adjust or remove)
-        // setTimeout(() => {
-        //   window.location.href = 'https://teddyasinobi-01.github.io/jendy-jasper-ltd/';
-        // }, 2000);
-
-      } else {
-        const text = await response.text();
-        alert("submission failed"+ (text || "Error submitting form. Please try again."));
-      }
-    }
-    // catch (error) {
-    //   console.error("Submission error:", error);
-    //   alert("Network error. Please check your connection and try again.");
-    // }
-    finally {
-      // Restore button
-      if (submitBtn) {
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-      }
-    }
-    form.submit();
-  });
-}
-
-// ====================== hCAPTCHA CHECK ======================
-const newform = document.getElementById('contact-form');
-if (newform) {
-  newform.addEventListener('submit', function (e) {
-    const hCaptcha = newform.querySelector('textarea[name="h-captcha-response"]');
-    if (hCaptcha && !hCaptcha.value) {
-      e.preventDefault();
-      alert("Please complete the captcha verification");
-      return false;
-    }
-  });
-}
-
-// ====================== MOBILE NAV TOGGLE ======================
+// ─── MOBILE NAV TOGGLE
 document.getElementById('ham').addEventListener('click', () => {
-  const links = document.querySelector('.nav-links');
-  if (links.style.display === 'flex') {
-    links.style.display = 'none';
-  } else {
-    links.style.display = 'flex';
-    links.style.flexDirection = 'column';
-    links.style.position = 'fixed';
-    links.style.top = '0';
-    links.style.left = '0';
-    links.style.right = '0';
-    links.style.bottom = '0';
-    links.style.background = 'rgba(13,30,51,0.98)';
-    links.style.justifyContent = 'center';
-    links.style.alignItems = 'center';
-    links.style.gap = '36px';
-    links.style.zIndex = '300';
-    links.style.fontSize = '18px';
-  }
+    const links = document.querySelector('.nav-links');
+    links.classList.toggle('active'); // Better to use a CSS class for this!
 });
-
