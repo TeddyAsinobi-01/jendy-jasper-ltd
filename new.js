@@ -64,49 +64,55 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
                   return;
               }
           
-              // Capture hCaptcha only if you actually have it in your HTML
-              const hCaptcha = form.querySelector('textarea[name=h-captcha-response]')?.value;
-              // Uncomment the lines below ONLY if you are using hCaptcha
-              
-              // if (!hCaptcha) {
-              //     alert('Please complete the captcha.');
-              //     return;
-              // }
-              
-          
-              const originalText = submitBtn.textContent;
-              submitBtn.textContent = "Sending...";
-              submitBtn.disabled = true;
-          
-              const formData = new FormData(form);
-          
-              try {
-                  const response = await fetch("https://api.web3forms.com/submit", {
-                      method: "POST",
-                      body: formData
-                  });
-          
-                  const data = await response.json();
-          
-                  if (response.ok) {
-                      recordSubmission();
-                      alert("Success! Your message has been sent.");
-                      form.reset();
-                      // Redirect to your thank you page
-                      window.location.href = "https://teddyasinobi-01.github.io/jendy-jasper-ltd/thankyou.html";
-                  } else {
-                      alert("Error: " + (data.message || "Something went wrong"));
-                      submitBtn.disabled = false;
-                      submitBtn.textContent = originalText;
-                  }
-          
-              } catch (error) {
-                  alert("Network error. Please check your connection and try again.");
-                  submitBtn.disabled = false;
-                  submitBtn.textContent = originalText;
-              }
-          });
+              const submitBtn = this.querySelector('button[type="submit"]');
+    const originalText = submitBtn ? submitBtn.textContent : 'Send Message';
 
+    // Disable button and show loading state
+    if (submitBtn) {
+      submitBtn.textContent = 'Sending...';
+      submitBtn.disabled = true;
+    }
+
+    try {
+      const formData = new FormData(this);
+
+      const response = await fetch(this.action, {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        // Record successful submission for rate limiting
+        rateLimiter.recordSubmission();
+
+        alert("Success! Your message has been sent.");
+
+        this.reset();   // Clear the form
+
+        // Optional: Auto redirect after success (you can adjust or remove)
+        // setTimeout(() => {
+        //   window.location.href = 'https://teddyasinobi-01.github.io/jendy-jasper-ltd/';
+        // }, 2000);
+
+      } else {
+        const text = await response.text();
+        alert("submission failed"+ (text || "Error submitting form. Please try again."));
+      }
+    }
+    // catch (error) {
+    //   console.error("Submission error:", error);
+    //   alert("Network error. Please check your connection and try again.");
+    // }
+    finally {
+      // Restore button
+      if (submitBtn) {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }
+    }
+  });
 
 
 
