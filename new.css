@@ -18,6 +18,15 @@
   --c-tech: #2980B9;
   --c-energy: #C97B2A;
   --c-edu: #6B5EA8;
+    --bg:        #0d0f14;
+    --surface:   #13161d;
+    --border:    #2a2e3a;
+    --accent:    #c8a96e;
+    --accent-dim:#8a6f3f;
+    --text:      #e8e4dc;
+    --muted:     #7a7a8a;
+    --error:     #e06b6b;
+    --radius:    6px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:16px}
@@ -256,7 +265,7 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);paddin
   z-index: 1;
   width: 100%;
   max-width: 560px;
-  background: var(--surface);
+  /* background: var(--surface); */
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 3rem 3rem 2.5rem;
@@ -377,7 +386,7 @@ textarea { resize: vertical; min-height: 120px; }
 }
 
 /* Submit */
-/* .btn {
+.form-btn {
   width: 100%;
   padding: 0.85rem 1.5rem;
   background: var(--accent);
@@ -392,7 +401,7 @@ textarea { resize: vertical; min-height: 120px; }
   cursor: pointer;
   transition: background 0.2s, transform 0.15s, opacity 0.2s;
   margin-top: 0.4rem;
-} */
+}
 
 .form-btn:hover:not(:disabled) { background: #d9bb82; transform: translateY(-1px); }
 .form-btn:active:not(:disabled) { transform: translateY(0); }
