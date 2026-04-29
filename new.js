@@ -13,112 +13,83 @@ const obs = new IntersectionObserver(entries => {
 
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-// ====================== FORM RATE LIMITER ======================
-class FormRateLimiter {
-  constructor(maxAttempts = 5, windowMs = 60 * 60 * 1000) {
-    this.maxAttempts = maxAttempts;   // 5 enquiries per hour
-    this.windowMs = windowMs;
-    this.key = 'enquiry_form_submissions';
-  }
+// ====================== CONTACT FORM ======================
 
-  canSubmit() {
-    const now = Date.now();
-    let submissions = JSON.parse(localStorage.getItem(this.key) || '[]');
 
-    // Remove old submissions outside the 1-hour window
-    submissions = submissions.filter(time => now - time < this.windowMs);
 
-    if (submissions.length >= this.maxAttempts) {
-      const oldest = submissions[0];
-      const timeLeftMs = oldest + this.windowMs - now;
-      const timeLeftMinutes = Math.ceil(timeLeftMs / 1000 / 60);
-      const minuteText = timeLeftMinutes === 1 ? 'minute' : 'minutes';
 
-      return {
-        allowed: false,
-        message: `You have reached the maximum of ${this.maxAttempts} enquiries per hour. ` +
-                 `Please try again in about ${timeLeftMinutes} ${minuteText}.`
-      };
-    }
 
-    return { allowed: true };
-  }
+          // ─── Rate Limiter ───────────────────────────────────────────────
+            // Stores timestamps of submissions in localStorage.
+            // Allows max 6 submissions per rolling 60-minute window.
+          //──────────────────────────────────────────────────────────────── */
+          const RATE_KEY   = 'cf_submissions';
+          const MAX_TRIES  = 6;
+          const WINDOW_MS  = 60 * 60 * 1000; // 1 hour
+        
+          function getTimestamps() {
+            try {
+              return JSON.parse(localStorage.getItem(RATE_KEY) || '[]');
+            } catch { return []; }
+          }
+        
+          function saveTimestamps(arr) {
+            localStorage.setItem(RATE_KEY, JSON.stringify(arr));
+          }
+        
+          function getPruned() {
+            const now = Date.now();
+            return getTimestamps().filter(t => now - t < WINDOW_MS);
+          }
+        
+          function isRateLimited() {
+            return getPruned().length >= MAX_TRIES;
+          }
+        
+          function recordSubmission() {
+            const pruned = getPruned();
+            pruned.push(Date.now());
+            saveTimestamps(pruned);
+          }
+        
+          /* ─── On page load: disable button if already rate-limited ───── */
+          const form      = document.getElementById('contactForm');
+          const submitBtn = document.getElementById('submitBtn');
+          const rateMsg   = document.getElementById('rate-msg');
+        
+          function checkRateOnLoad() {
+            if (isRateLimited()) {
+              submitBtn.disabled = true;
+              rateMsg.style.display = 'block';
+            }
+          }
+          checkRateOnLoad();
+        
+          /* ─── Intercept submit ──────────────────────────────────────────
+             1. Check rate limit before letting FormSubmit see it.
+             2. Record the attempt.
+             3. Allow native form POST → FormSubmit handles captcha,
+                then redirects to _next (thankyou.html).
+          ──────────────────────────────────────────────────────────────── */
+          form.addEventListener('submit', function (e) {
+        
+            if (isRateLimited()) {
+              e.preventDefault();
+              submitBtn.disabled = true;
+              rateMsg.style.display = 'block';
+              return;
+            }
+        
+            // Record this submission BEFORE the page navigates away
+            recordSubmission();
+        
+            // Let the form POST naturally → FormSubmit captcha → thankyou.html
+            // (no e.preventDefault() here)
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending…';
+          });
 
-  recordSubmission() {
-    const now = Date.now();
-    let submissions = JSON.parse(localStorage.getItem(this.key) || '[]');
-    submissions = submissions.filter(time => now - time < this.windowMs);
-    submissions.push(now);
-    localStorage.setItem(this.key, JSON.stringify(submissions));
-  }
-}
 
-// ====================== CONTACT FORM HANDLER ======================
-const rateLimiter = new FormRateLimiter(5, 60 * 60 * 1000); // 5 per hour
-
-const contactForm = document.getElementById('contact-form');   // Make sure your form has id="contact-form"
-
-if (contactForm) {
-  contactForm.addEventListener('submit', async function (e) {
-    e.preventDefault();
-
-    // === RATE LIMIT CHECK ===
-    const rateCheck = rateLimiter.canSubmit();
-    if (!rateCheck.allowed) {
-      alert(rateCheck.message);
-      return;
-    }
-
-    const submitBtn = this.querySelector('button[type="submit"]');
-    const originalText = submitBtn ? submitBtn.textContent : 'Send Message';
-
-    // Disable button and show loading state
-    if (submitBtn) {
-      submitBtn.textContent = 'Sending...';
-      submitBtn.disabled = true;
-    }
-
-    try {
-      const formData = new FormData(this);
-
-      const response = await fetch(this.action, {
-        method: "POST",
-        body: formData
-      });
-
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        // Record successful submission for rate limiting
-        rateLimiter.recordSubmission();
-
-        alert("Success! Your message has been sent.");
-
-        this.reset();   // Clear the form
-
-        // Optional: Auto redirect after success (you can adjust or remove)
-        // setTimeout(() => {
-        //   window.location.href = 'https://teddyasinobi-01.github.io/jendy-jasper-ltd/';
-        // }, 2000);
-
-      } else {
-        const text = await response.text();
-        alert("submission failed"+ (text || "Error submitting form. Please try again."));
-      }
-    }
-    // catch (error) {
-    //   console.error("Submission error:", error);
-    //   alert("Network error. Please check your connection and try again.");
-    // }
-    finally {
-      // Restore button
-      if (submitBtn) {
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-      }
-    }
-  });
-}
 
 // ====================== hCAPTCHA CHECK ======================
 const newform = document.getElementById('contact-form');

@@ -403,8 +403,8 @@
       </div>
 
       <!-- CONTACT, FORM -->
-      <!--  -->
-      <form action="https://formsubmit.co/ibonisaledu@gmail.com" method="POST" id="contact-form">
+      
+      <!-- <form action="https://formsubmit.co/ibonisaledu@gmail.com" method="POST" id="contact-form">
         <div class="h-captcha" data-sitekey="de588e8e-32ea-4aaa-9ff8-f17e8eb6a51e"></div>
         <input type="hidden" name="_next" value="https://teddyasinobi-01.github.io/jendy-jasper-ltd/thankyou.html">
         <input type="hidden" name="_subject" value="New submission!">
@@ -429,15 +429,92 @@
             </select>
           </div>
           <div class="fg"><label>Message</label><textarea name="message" data-fs-field placeholder="Tell us about your enquiry..."></textarea></div>
-          <!-- <form method="POST">
-            
-            
-          </form> -->
-          <!-- SEND BUTTON -->
-           <button type="submit" class="fsub" data-fs-submit-btn id="send-btn">Send Message</button>
+          
+           SEND BUTTON 
+
+        </div> 
+      </form>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+         
         
-      </div>
-      </form>
+          
+        
+        <div class="card">
+                 
+          <!-- Rate-limit warning -->
+          <div id="rate-msg">You've reached the submission limit (6 per hour). Please try again later.</div>
+        
+          <form id="contactForm" action="https://formsubmit.co/ibonisaledu@gmail.com" method="POST">
+        
+            <!-- FormSubmit hidden config -->
+            <input type="hidden" name="_captcha"  value="true">
+            <input type="hidden" name="_next"     value="https://teddyasinobi-01.github.io/jendy-jasper-ltd/thankyou.html">
+            <input type="hidden" name="_template" value="box">
+            <input type="hidden" name="_subject" value="New submission!">
+            <div class="form-row">
+              <!-- Name -->
+              <div class="field">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Full name" required autocomplete="given-name">
+              </div>
+              <!-- Surname -->
+             
+            </div>
+        
+            <!-- Email -->
+            <div class="field">
+              <label for="email">Email address</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email">
+            </div>
+        
+            <!-- Dropdown -->
+            <div class="field">
+              <label for="topic">Topic</label>
+              <div class="select-wrap">
+                <label>Division of Interest</label>
+                <select name="service"  data-fs-field required>
+                  <option value="">Select a division</option>
+                  <option>General Trading &amp; Merchandise</option>
+                  <option>Automobile &amp; Auto Services</option>
+                  <option>Agriculture &amp; Agro-Allied</option>
+                  <option>Lifestyle, Beauty &amp; Wellness</option>
+                  <option>Technology &amp; Consulting</option>
+                  <option>Oil, Gas &amp; Energy</option>
+                  <option>Education Services</option>
+                  <option>General Enquiry</option>
+                  <option>Partnership / Investment</option>
+                </select>
+              </div>
+            </div>
+        
+            <!-- Message -->
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Write your message here…" required></textarea>
+            </div>
+        
+            <div id="rate-msg-inline"></div>
+        
+            <button type="submit" class="btn" id="submitBtn">Send message</button>
+          </form>
+        </div>
+        
+       
       
       
     </div>
