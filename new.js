@@ -25,84 +25,91 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
           //──────────────────────────────────────────────────────────────── */
           const RATE_KEY   = 'cf_submissions';
           const MAX_TRIES  = 6;
-          const WINDOW_MS  = 60 * 60 * 1000; // 1 hour
-        
-          function getTimestamps() {
-            try {
-              return JSON.parse(localStorage.getItem(RATE_KEY) || '[]');
-            } catch { return []; }
-          }
-        
-          function saveTimestamps(arr) {
-            localStorage.setItem(RATE_KEY, JSON.stringify(arr));
-          }
-        
-          function getPruned() {
-            const now = Date.now();
-            return getTimestamps().filter(t => now - t < WINDOW_MS);
-          }
-        
-          function isRateLimited() {
-            return getPruned().length >= MAX_TRIES;
-          }
-        
-          function recordSubmission() {
-            const pruned = getPruned();
-            pruned.push(Date.now());
-            saveTimestamps(pruned);
-          }
-        
-          /* ─── On page load: disable button if already rate-limited ───── */
+          const WINDOW_MS  = 60 * 60 * 1000;
+          
           const form      = document.getElementById('contactForm');
           const submitBtn = document.getElementById('submitBtn');
           const rateMsg   = document.getElementById('rate-msg');
-        
-          function checkRateOnLoad() {
-            if (isRateLimited()) {
-              submitBtn.disabled = true;
-              rateMsg.style.display = 'block';
-            }
+          
+          // Helper functions for Rate Limiting
+          function getPruned() {
+              const now = Date.now();
+              try {
+                  const timestamps = JSON.parse(localStorage.getItem(RATE_KEY) || '[]');
+                  return timestamps.filter(t => now - t < WINDOW_MS);
+              } catch { return []; }
           }
-          checkRateOnLoad();
-        
-          /* ─── Intercept submit ──────────────────────────────────────────
-             1. Check rate limit before letting FormSubmit see it.
-             2. Record the attempt.
-             3. Allow native form POST → FormSubmit handles captcha,
-                then redirects to _next (thankyou.html).
-          ──────────────────────────────────────────────────────────────── */
-          form.addEventListener('submit', function (e) {
-        
-            if (isRateLimited()) {
-              e.preventDefault();
+          
+          function isRateLimited() {
+              return getPruned().length >= MAX_TRIES;
+          }
+          
+          function recordSubmission() {
+              const pruned = getPruned();
+              pruned.push(Date.now());
+              localStorage.setItem(RATE_KEY, JSON.stringify(pruned));
+          }
+          
+          // Initial check
+          if (isRateLimited()) {
               submitBtn.disabled = true;
               rateMsg.style.display = 'block';
-              return;
-            }
-        
-            // Record this submission BEFORE the page navigates away
-            recordSubmission();
-        
-            // Let the form POST naturally → FormSubmit captcha → thankyou.html
-            // (no e.preventDefault() here)
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Sending…';
+          }
+          
+          form.addEventListener('submit', async function (e) {
+              e.preventDefault(); // REQUIRED: We are handling the submit via Fetch
+          
+              if (isRateLimited()) {
+                  alert("You have reached the submission limit. Please try again later.");
+                  return;
+              }
+          
+              // Capture hCaptcha only if you actually have it in your HTML
+              const hCaptcha = form.querySelector('textarea[name=h-captcha-response]')?.value;
+              // Uncomment the lines below ONLY if you are using hCaptcha
+              
+              if (!hCaptcha) {
+                  alert('Please complete the captcha.');
+                  return;
+              }
+              
+          
+              const originalText = submitBtn.textContent;
+              submitBtn.textContent = "Sending...";
+              submitBtn.disabled = true;
+          
+              const formData = new FormData(form);
+          
+              try {
+                  const response = await fetch("https://api.web3forms.com/submit", {
+                      method: "POST",
+                      body: formData
+                  });
+          
+                  const data = await response.json();
+          
+                  if (response.ok) {
+                      recordSubmission();
+                      alert("Success! Your message has been sent.");
+                      form.reset();
+                      // Redirect to your thank you page
+                      window.location.href = "https://teddyasinobi-01.github.io/jendy-jasper-ltd/thankyou.html";
+                  } else {
+                      alert("Error: " + (data.message || "Something went wrong"));
+                      submitBtn.disabled = false;
+                      submitBtn.textContent = originalText;
+                  }
+          
+              } catch (error) {
+                  alert("Network error. Please check your connection and try again.");
+                  submitBtn.disabled = false;
+                  submitBtn.textContent = originalText;
+              }
           });
 
 
 
-// ====================== hCAPTCHA CHECK ======================
-const newform = document.getElementById('contact-form');
-if (newform) {
-  newform.addEventListener('submit', function (e) {
-    const hCaptcha = newform.querySelector('textarea[name="h-captcha-response"]');
-    if (hCaptcha && !hCaptcha.value) {
-      e.preventDefault();
-      alert("Please complete the captcha verification");
-      return false;
-    }
-  });
-}
+
 
 // ====================== MOBILE NAV TOGGLE ======================
 document.getElementById('ham').addEventListener('click', () => {
