@@ -13,51 +13,54 @@ const obs = new IntersectionObserver(entries => {
 
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-// ====================== CONTACT FORM ======================
+// ====================== FORM RATE LIMITER ======================
+class FormRateLimiter {
+  constructor(maxAttempts = 5, windowMs = 60 * 60 * 1000) {
+    this.maxAttempts = maxAttempts;   // 5 enquiries per hour
+    this.windowMs = windowMs;
+    this.key = 'enquiry_form_submissions';
+  }
 
+  canSubmit() {
+    const now = Date.now();
+    let submissions = JSON.parse(localStorage.getItem(this.key) || '[]');
 
+    // Remove old submissions outside the 1-hour window
+    submissions = submissions.filter(time => now - time < this.windowMs);
 
+    if (submissions.length >= this.maxAttempts) {
+      const oldest = submissions[0];
+      const timeLeftMs = oldest + this.windowMs - now;
+      const timeLeftMinutes = Math.ceil(timeLeftMs / 1000 / 60);
+      const minuteText = timeLeftMinutes === 1 ? 'minute' : 'minutes';
 
+      return {
+        allowed: false,
+        message: `You have reached the maximum of ${this.maxAttempts} enquiries per hour. ` +
+                 `Please try again in about ${timeLeftMinutes} ${minuteText}.`
+      };
+    }
 
-          // ─── Rate Limiter ───────────────────────────────────────────────
-            // Stores timestamps of submissions in localStorage.
-            // Allows max 6 submissions per rolling 60-minute window.
-          //──────────────────────────────────────────────────────────────── */
-          const RATE_KEY   = 'cf_submissions';
-          const MAX_TRIES  = 6;
-          const WINDOW_MS  = 60 * 60 * 1000;
-          
-          const form      = document.getElementById('contactForm');
-          const submitBtn = document.getElementById('submitBtn');
-          const rateMsg   = document.getElementById('rate-msg');
-          
-          // Helper functions for Rate Limiting
-          function getPruned() {
-              const now = Date.now();
-              try {
-                  const timestamps = JSON.parse(localStorage.getItem(RATE_KEY) || '[]');
-                  return timestamps.filter(t => now - t < WINDOW_MS);
-              } catch { return []; }
-          }
-          
-          function isRateLimited() {
-              return getPruned().length >= MAX_TRIES;
-          }
-          
-          function recordSubmission() {
-              const pruned = getPruned();
-              pruned.push(Date.now());
-              localStorage.setItem(RATE_KEY, JSON.stringify(pruned));
-          }
-          
-          // Initial check
-          if (isRateLimited()) {
-              submitBtn.disabled = true;
-              rateMsg.style.display = 'block';
-          }
-          
-          form.addEventListener('submit', async function (e) {
-              e.preventDefault(); // REQUIRED: We are handling the submit via Fetch
+    return { allowed: true };
+  }
+
+  recordSubmission() {
+    const now = Date.now();
+    let submissions = JSON.parse(localStorage.getItem(this.key) || '[]');
+    submissions = submissions.filter(time => now - time < this.windowMs);
+    submissions.push(now);
+    localStorage.setItem(this.key, JSON.stringify(submissions));
+  }
+}
+
+// ====================== CONTACT FORM HANDLER ======================
+const rateLimiter = new FormRateLimiter(5, 60 * 60 * 1000); // 5 per hour
+
+const contactForm = document.getElementById('contact-form');   // Make sure your form has id="contact-form"
+
+if (contactForm) {
+  contactForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
 
     // === RATE LIMIT CHECK ===
     const rateCheck = rateLimiter.canSubmit();
@@ -114,12 +117,21 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
         submitBtn.disabled = false;
       }
     }
+  });
+}
 
-
-          });
-
-
-
+// ====================== hCAPTCHA CHECK ======================
+const newform = document.getElementById('contact-form');
+if (newform) {
+  newform.addEventListener('submit', function (e) {
+    const hCaptcha = newform.querySelector('textarea[name="h-captcha-response"]');
+    if (hCaptcha && !hCaptcha.value) {
+      e.preventDefault();
+      alert("Please complete the captcha verification");
+      return false;
+    }
+  });
+}
 
 // ====================== MOBILE NAV TOGGLE ======================
 document.getElementById('ham').addEventListener('click', () => {
