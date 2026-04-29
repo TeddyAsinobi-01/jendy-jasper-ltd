@@ -575,11 +575,85 @@
   <div class="footer-gold-bar"></div>
 </footer>
 
+
+<!-- FIRE BASE SETUP -->
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyCkb6pQIXVyvkPN4YlX1jZBwi4w2-a1Rc4",
+    authDomain: "my-website-limit.firebaseapp.com",
+    projectId: "my-website-limit",
+    storageBucket: "my-website-limit.firebasestorage.app",
+    messagingSenderId: "658939585890",
+    appId: "1:658939585890:web:e6e737e578409754f6383b",
+    measurementId: "G-D87JCHQD59"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+
+  // 3. Function to check the email in the database
+  async function checkEmailLimit() {
+    const email = emailInput.value.toLowerCase().trim();
+    if (!email) return;
+
+    const docRef = doc(db, "submissions", email);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      const now = Date.now();
+        const oneHour = 60 * 60 * 1000; // Time in milliseconds
+      // The "Cool Down" Check
+      if (data.count >= 5) {
+            const timePassed = now - data.lastUpdated;
+
+            if (timePassed < oneHour) {
+                // Still in the "Time Out" zone
+                const minsLeft = Math.ceil((oneHour - timePassed) / 60000);
+                submitBtn.disabled = true;
+                submitBtn.innerText = `Try again in ${minsLeft} mins`;
+            } else {
+                // Hour is up! Reset the count automatically
+                await updateDoc(docRef, { count: 0 });
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Submit";
+            }
+        }
+    }
+}
+
+  // Check whenever they finish typing their email
+  emailInput.addEventListener('blur', checkEmailLimit);
+
+  // 4. Update the count when they successfully submit
+  
+</script>
+
+
+
+
+
+
+
+
+
 <!-- Link Javascript -->
 <script src="new.js"></script>
 <!-- Link Captcha -->
 <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 <!-- Step 2: Add the Web3Forms script -->
+
+
+
 
 
 </body>

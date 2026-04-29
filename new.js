@@ -61,7 +61,31 @@ const contactForm = document.getElementById('contact-form');   // Make sure your
 if (contactForm) {
   contactForm.addEventListener('submit', async function (e) {
     e.preventDefault();
+// 1. Stop the form from sending immediately so we can check Firebase
 
+
+const email = emailInput.value.toLowerCase().trim();
+const docRef = doc(db, "submissions", email);
+const docSnap = await getDoc(docRef);
+
+// 2. Run the Rate Limit Logic
+let currentCount = 0;
+if (docSnap.exists()) {
+    currentCount = docSnap.data().count;
+}
+
+if (currentCount >= 5) {
+    alert("You have reached the limit of 5 submissions.");
+    submitBtn.disabled = true;
+    return; // Stop everything here!
+}
+
+// 3. Update Firebase count
+if (!docSnap.exists()) {
+    await setDoc(docRef, { count: 1, lastUpdated: Date.now() });
+} else {
+    await updateDoc(docRef, { count: increment(1), lastUpdated: Date.now() });
+}
     // === RATE LIMIT CHECK ===
     const rateCheck = rateLimiter.canSubmit();
     if (!rateCheck.allowed) {
@@ -117,6 +141,7 @@ if (contactForm) {
         submitBtn.disabled = false;
       }
     }
+    form.submit();
   });
 }
 
