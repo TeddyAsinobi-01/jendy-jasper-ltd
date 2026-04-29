@@ -250,42 +250,8 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);paddin
   .hdiv span{font-size:10px}
 }
 /* CONTACT FORM */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        
-:root {
-  --bg:        #0d0f14;
-  --surface:   #13161d;
-  --border:    #2a2e3a;
-  --accent:    #c8a96e;
-  --accent-dim:#8a6f3f;
-  --text:      #e8e4dc;
-  --muted:     #7a7a8a;
-  --error:     #e06b6b;
-  --radius:    6px;
-}
 
-body {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--bg);
-  font-family: 'DM Sans', sans-serif;
-  color: var(--text);
-  padding: 2rem 1rem;
-}
-
-/* Subtle grain overlay */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 0;
-}
-
-.card {
+.card-2 {
   position: relative;
   z-index: 1;
   width: 100%;
@@ -304,7 +270,7 @@ body::before {
 }
 
 /* Accent line at top */
-.card::before {
+.card-2::before {
   content: '';
   position: absolute;
   top: 0; left: 10%; right: 10%;
@@ -411,7 +377,7 @@ textarea { resize: vertical; min-height: 120px; }
 }
 
 /* Submit */
-.btn {
+/* .btn {
   width: 100%;
   padding: 0.85rem 1.5rem;
   background: var(--accent);
@@ -426,11 +392,11 @@ textarea { resize: vertical; min-height: 120px; }
   cursor: pointer;
   transition: background 0.2s, transform 0.15s, opacity 0.2s;
   margin-top: 0.4rem;
-}
+} */
 
-.btn:hover:not(:disabled) { background: #d9bb82; transform: translateY(-1px); }
-.btn:active:not(:disabled) { transform: translateY(0); }
-.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.form-btn:hover:not(:disabled) { background: #d9bb82; transform: translateY(-1px); }
+.form-btn:active:not(:disabled) { transform: translateY(0); }
+.form-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
 .footer-note {
   margin-top: 1.4rem;
@@ -441,6 +407,6 @@ textarea { resize: vertical; min-height: 120px; }
 }
 
 @media (max-width: 520px) {
-  .card { padding: 2rem 1.5rem; }
+  .card-2 { padding: 2rem 1.5rem; }
   .form-row { grid-template-columns: 1fr; }
 }
