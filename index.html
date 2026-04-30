@@ -459,7 +459,7 @@
           <!-- Rate-limit warning -->
           <div id="rate-msg">You've reached the submission limit (6 per hour). Please try again later.</div>
           
-          <form id="contactForm contactForm-2" action="https://formsubmit.co/ibonisaledu@gmail.com" method="POST">
+          <form id="contactForm" action="https://formsubmit.co/ibonisaledu@gmail.com" method="POST">
             <input type="hidden" name="_subject" value="New submission!">
             <input type="hidden" name="_next"     value="https://teddyasinobi-01.github.io/jendy-jasper-ltd/thankyou.html">
             <div class="form-row">
@@ -475,7 +475,7 @@
             <!-- Email -->
             <div class="field">
               <label for="email">Email address</label>
-              <input type="email" id="email emailInput" name="email" placeholder="you@example.com" required autocomplete="email">
+              <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email">
             </div>
         
             <!-- Dropdown -->
@@ -505,7 +505,7 @@
         
             <div id="rate-msg-inline"></div>
             <!-- <div class="h-captcha" data-sitekey="a581fc14-460b-4a42-83dc-9dae7bf467b9"></div> -->
-            <button type="submit" class="form-btn" id="submitBtn submitBtn-2">Send message</button>
+            <button type="submit" class="form-btn" id="submitBtn">Send message</button>
           </form>
         </div>
         
@@ -577,91 +577,6 @@
 
 
 <!-- FIRE BASE SETUP -->
-<!-- <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyCkb6pQIXVyvkPN4YlX1jZBwi4w2-a1Rc4",
-    authDomain: "my-website-limit.firebaseapp.com",
-    projectId: "my-website-limit",
-    storageBucket: "my-website-limit.firebasestorage.app",
-    messagingSenderId: "658939585890",
-    appId: "1:658939585890:web:e6e737e578409754f6383b",
-    measurementId: "G-D87JCHQD59"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-// 3. Connect to your HTML elements
-const emailInput = document.getElementById('emailInput'); // Matches your id="email"
-  const submitBtn = document.getElementById('submitBtn-2'); // Matches your id="submitBtn"
-  const contactForm = document.getElementById('contactForm-2');
-
-  // 3. Function to check the email in the database
-  async function checkEmailLimit() {
-    const email = emailInput.value.toLowerCase().trim();
-    if (!email) return;
-
-    const docRef = doc(db, "submissions", email);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      const data = docSnap.data();
-      const now = Date.now();
-      const oneHour = 60 * 60 * 1000;
-
-      if (data.count >= 5) {
-        const timePassed = now - data.lastUpdated;
-        if (timePassed < oneHour) {
-          const minsLeft = Math.ceil((oneHour - timePassed) / 60000);
-          submitBtn.disabled = true;
-          submitBtn.innerText = `Limit Reached. Try in ${minsLeft}m`;
-        } else {
-          await updateDoc(docRef, { count: 0 });
-          submitBtn.disabled = false;
-          submitBtn.innerText = "Send Message";
-        }
-      }
-    }
-  }
-
-  emailInput.addEventListener('blur', checkEmailLimit);
-
-  // 4. The Submit Event (The Gatekeeper)
-  contactForm.addEventListener('submit', async (e) => {
-    e.preventDefault(); // Stop form from sending to FormSubmit immediately
-
-    const email = emailInput.value.toLowerCase().trim();
-    const docRef = doc(db, "submissions", email);
-    const docSnap = await getDoc(docRef);
-
-    // Final check before sending
-    if (docSnap.exists() && docSnap.data().count >= 5) {
-      const timePassed = Date.now() - docSnap.data().lastUpdated;
-      if (timePassed < (60 * 60 * 1000)) {
-         alert("Submission limit reached. Please wait one hour.");
-         return; 
-      }
-    }
-
-    // Save to Firebase
-    if (!docSnap.exists()) {
-      await setDoc(docRef, { count: 1, lastUpdated: Date.now() });
-    } else {
-      await updateDoc(docRef, { count: increment(1), lastUpdated: Date.now() });
-    }
-
-    // NOW send to FormSubmit
-    contactForm.submit();
-  });
-</script> -->
 
 
 
