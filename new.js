@@ -1,3 +1,6 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
 // ─── NAV SCROLL
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
@@ -16,8 +19,6 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 // ─── FIREBASE & FORM HANDLER (The Gatekeeper)
 // Note: Ensure your Firebase Script Type="Module" is initialized before this or wrap this in the module
 // 1. Correct Imports (Adding Firestore functions)
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCkb6pQIXVyvkPN4YlX1jZBwi4w2-a1Rc4",
