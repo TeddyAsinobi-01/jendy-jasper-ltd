@@ -32,7 +32,6 @@ const firebaseConfig = {
 // 2. Initialize
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const db = getFirestore(); // Assumes Firebase is already initialized
 const contactForm = document.getElementById('contactForm'); // Match your HTML ID
 const emailInput = document.getElementById('email'); 
 const submitBtn = document.getElementById('submitBtn');
