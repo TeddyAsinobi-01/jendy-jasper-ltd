@@ -1,4 +1,5 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+// import {  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { initializeApp } from "[https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js](https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js)";
 import { getFirestore, doc, getDoc, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 // ─── NAV SCROLL
@@ -33,6 +34,8 @@ const firebaseConfig = {
 // 2. Initialize
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+console.log("✅ Firebase Initialized Successfully");
+
 const contactForm = document.getElementById('contactForm'); // Match your HTML ID
 const emailInput = document.getElementById('email'); 
 const submitBtn = document.getElementById('submitBtn');
@@ -40,7 +43,7 @@ const submitBtn = document.getElementById('submitBtn');
 if (contactForm) {
     contactForm.addEventListener('submit', async function (e) {
         e.preventDefault(); // 1. STOP the form immediately
-
+        console.log("🚀 Form Submit Triggered");
         // // 2. CAPTCHA CHECK
         // const hCaptcha = this.querySelector('textarea[name="h-captcha-response"]');
         // if (hCaptcha && !hCaptcha.value) {
@@ -53,8 +56,17 @@ if (contactForm) {
         const originalText = submitBtn.textContent;
 
         try {
+            console.log("📡 Attempting to write to Firebase...");
+
             submitBtn.textContent = 'Checking...';
             submitBtn.disabled = true;
+
+            await setDoc(docRef, { 
+                count: increment(1), 
+                lastUpdated: Date.now() 
+              }, { merge: true });
+      
+              console.log("✨ Firebase Updated! Now sending email...");
 
             // 3. FIREBASE RATE LIMIT CHECK
             const docSnap = await getDoc(docRef);
@@ -88,8 +100,9 @@ if (contactForm) {
             // If database fails, we let it send anyway so you don't lose customers
             contactForm.submit();
         }
+        
     });
-}
+} 
 
 // ─── MOBILE NAV TOGGLE
 document.getElementById('ham').addEventListener('click', () => {
