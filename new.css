@@ -323,6 +323,52 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);paddin
 }
 
 }
+.collage {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  height: 620px;
+  margin: 40px auto;
+}
+
+.collage img {
+  position: absolute;
+  width: 48%;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+  transition: transform 0.4s ease;
+  object-fit: cover;
+}
+
+.collage img:hover {
+  transform: scale(1.05);
+  z-index: 10;
+}
+
+/* Image Positions - Partially Stacked */
+.img1 {
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.img2 {
+  top: 80px;
+  right: 0;
+  z-index: 2;
+}
+
+.img3 {
+  bottom: 60px;
+  left: 40px;
+  z-index: 3;
+}
+
+.img4 {
+  bottom: 0;
+  right: 60px;
+  z-index: 4;
+}
 /* CONTACT FORM */
 
 .card-2 {
