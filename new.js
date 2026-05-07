@@ -3,10 +3,7 @@ import { getFirestore, doc, getDoc, setDoc, updateDoc, increment } from "https:/
 
 
 // ─── MOBILE NAV TOGGLE
-// document.getElementById('ham').addEventListener('click', () => {
-//     const links = document.querySelector('.nav-links');
-//     links.classList.toggle('active'); // Better to use a CSS class for this!
-// });
+
 
 const menu = document.querySelector('#mobile-menu');
 const menuLinks = document.querySelector('.nav-links');
