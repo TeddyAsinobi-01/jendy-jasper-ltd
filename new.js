@@ -3,8 +3,6 @@ import { getFirestore, doc, getDoc, setDoc, updateDoc, increment } from "https:/
 
 
 // ─── MOBILE NAV TOGGLE
-
-
 const menu = document.querySelector('#mobile-menu');
 const menuLinks = document.querySelector('.nav-links');
 
