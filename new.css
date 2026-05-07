@@ -275,9 +275,12 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);paddin
     background: #131313;
 }
 
+.nav-links a{
+  text-align: center;
+}
 .nav-links.active {
     background: #131313;
-    top: 6%;
+    top: 10%;
     left: 0;
     opacity: 1;
     transition: top 0.5s ease-in-out;
