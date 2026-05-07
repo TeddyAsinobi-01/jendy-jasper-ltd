@@ -260,7 +260,7 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);paddin
  
   .navbar__toggle {
     display: block;
-}
+  }
   .nav-links {
     display: grid;
     grid-template-columns: auto;
