@@ -326,7 +326,8 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);paddin
 }
 
 .collage {
-  height: 370px;}
+  height: 331px;
+  }
 }
 .collage {
   position: relative;
