@@ -13,10 +13,7 @@ menu.addEventListener('click', function () {
 
 
 // ─── NAV SCROLL
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-    nav.classList.toggle('solid', window.scrollY > 60);
-});
+// 
 
 // ─── REVEAL ON SCROLL
 const obs = new IntersectionObserver(entries => {
