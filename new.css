@@ -321,7 +321,12 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);paddin
 #mobile-menu.is-active .bar:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
 }
+.about-section {
+  padding: 0px 0;
+}
 
+.collage {
+  height: 370px;}
 }
 .collage {
   position: relative;
@@ -360,13 +365,13 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);paddin
 
 .img3 {
   bottom: 60px;
-  left: 40px;
+  left: 4px;
   z-index: 3;
 }
 
 .img4 {
   bottom: 0;
-  right: -70px;
+  right: -10px;
   z-index: 4;
 }
 /* CONTACT FORM */
