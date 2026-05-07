@@ -1,11 +1,15 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, doc, getDoc, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 57125bb94b3477fa86eac2079c2cea534a5c3a79
 // ─── MOBILE NAV TOGGLE
 document.getElementById('ham').addEventListener('click', () => {
     const links = document.querySelector('.nav-links');
     links.classList.toggle('active'); // Better to use a CSS class for this!
+<<<<<<< HEAD
 });
 
 const menu = document.querySelector('#mobile-menu');
@@ -15,6 +19,9 @@ menu.addEventListener('click', function () {
     menu.classList.toggle('is-active');
     menuLinks.classList.toggle('active');
 });
+=======
+}); 
+>>>>>>> 57125bb94b3477fa86eac2079c2cea534a5c3a79
 
 
 // ─── NAV SCROLL
@@ -118,4 +125,7 @@ if (contactForm) {
         
     });
 } 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 57125bb94b3477fa86eac2079c2cea534a5c3a79
