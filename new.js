@@ -9,11 +9,7 @@ const menuLinks = document.querySelector('.nav-links');
 menu.addEventListener('click', function () {
     menu.classList.toggle('is-active');
     menuLinks.classList.toggle('active');
-});
-
-
-// ─── NAV SCROLL
-// 
+}); 
 
 // ─── REVEAL ON SCROLL
 const obs = new IntersectionObserver(entries => {
