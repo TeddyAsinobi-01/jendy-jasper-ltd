@@ -261,7 +261,7 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);paddin
   .navbar__toggle {
     display: block;
 }
-  .navbar__menu {
+  .nav-links {
     display: grid;
     grid-template-columns: auto;
     margin: 0;
@@ -275,7 +275,7 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);paddin
     background: #131313;
 }
 
-.navbar__menu.active {
+.nav-links.active {
     background: #131313;
     top: 6%;
     left: 0;
