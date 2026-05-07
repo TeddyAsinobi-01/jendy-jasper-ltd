@@ -327,7 +327,7 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);paddin
   position: relative;
   width: 100%;
   max-width: 900px;
-  height: 620px;
+  height: 480px;
   margin: 40px auto;
 }
 
@@ -366,7 +366,7 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);paddin
 
 .img4 {
   bottom: 0;
-  right: 60px;
+  right: -70px;
   z-index: 4;
 }
 /* CONTACT FORM */
