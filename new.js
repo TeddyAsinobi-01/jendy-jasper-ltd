@@ -58,6 +58,39 @@ async function fetchIP() {
 if (contactForm) {
     contactForm.addEventListener('submit', async function (e) {
         e.preventDefault();
+        const form = e.target;
+
+        const hcaptchaResponse = hcaptcha.getResponse();
+    
+        if (!hcaptchaResponse) {
+            alert("Please complete the captcha");
+            return;
+        }
+    
+        const formData = new FormData(form);
+    
+        try {
+    
+            const response = await fetch("https://formsubmit.co/ajax/ibonisaledu@gmail.com", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    Accept: "application/json"
+                }
+            });
+    
+            if (response.ok) {
+                alert("Message sent successfully");
+                form.reset();
+                hcaptcha.reset();
+            } else {
+                alert("Something went wrong");
+            }
+    
+        } catch (error) {
+            alert("Error sending form");
+        }//hcaptcha end
+    
         console.log("🚀 [STAGE 3] Form submit triggered — default prevented");
 
         const originalText = submitBtn.textContent;
