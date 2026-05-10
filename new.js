@@ -21,9 +21,6 @@ const obs = new IntersectionObserver(entries => {
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
 // ─── FIREBASE & FORM HANDLER (The Gatekeeper)
-// Note: Ensure your Firebase Script Type="Module" is initialized before this or wrap this in the module
-// 1. Correct Imports (Adding Firestore functions)
-
 const firebaseConfig = {
   apiKey: "AIzaSyCkb6pQIXVyvkPN4YlX1jZBwi4w2-a1Rc4",
   authDomain: "my-website-limit.firebaseapp.com",
@@ -34,75 +31,101 @@ const firebaseConfig = {
   measurementId: "G-D87JCHQD59"
 };
 
-// 2. Initialize
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-console.log("✅ Firebase Initialized Successfully");
+console.log("✅ [STAGE 1] Firebase initialized successfully");
 
-const contactForm = document.getElementById('contactForm'); // Match your HTML ID
-const emailInput = document.getElementById('email'); 
+const contactForm = document.getElementById('contactForm');
 const submitBtn = document.getElementById('submitBtn');
+
+if (!contactForm) console.error("❌ [STAGE 1] contactForm element not found in DOM");
+if (!submitBtn)  console.error("❌ [STAGE 1] submitBtn element not found in DOM");
+
+// ─── IP FETCH HELPER
+async function fetchIP() {
+    console.log("🌐 [STAGE 2] Fetching IP from api.ipify.org...");
+    try {
+        const res = await fetch('https://api.ipify.org?format=json');
+        const data = await res.json();
+        console.log("✅ [STAGE 2] IP fetched successfully:", data.ip);
+        return data.ip || 'unknown';
+    } catch (err) {
+        console.error("❌ [STAGE 2] Failed to fetch IP:", err);
+        return 'unknown';
+    }
+}
 
 if (contactForm) {
     contactForm.addEventListener('submit', async function (e) {
-        e.preventDefault(); // 1. STOP the form immediately
-        console.log("🚀 Form Submit Triggered");
-        // // 2. CAPTCHA CHECK
-        // const hCaptcha = this.querySelector('textarea[name="h-captcha-response"]');
-        // if (hCaptcha && !hCaptcha.value) {
-        //     alert("Please complete the captcha verification");
-        //     return;
-        // }
+        e.preventDefault();
+        console.log("🚀 [STAGE 3] Form submit triggered — default prevented");
 
-        const email = emailInput.value.toLowerCase().trim();
-        const docRef = doc(db, "submissions", email);
         const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Checking...';
+        submitBtn.disabled = true;
+
+        // ─── FETCH IP
+        const ip = await fetchIP();
+        const safeIP = ip.replace(/\./g, '_');
+        console.log("🔑 [STAGE 3] Safe Firestore document ID:", safeIP);
+
+        const docRef = doc(db, "submissions", safeIP);
 
         try {
-            console.log("📡 Attempting to write to Firebase...");
-
-            submitBtn.textContent = 'Checking...';
-            submitBtn.disabled = true;
-
+            // ─── STAGE 4: Initial write
+            console.log("📡 [STAGE 4] Writing initial increment to Firestore...");
             await setDoc(docRef, { 
                 count: increment(1), 
                 lastUpdated: Date.now() 
-              }, { merge: true });
-      
-              console.log("✨ Firebase Updated! Now sending email...");
+            }, { merge: true });
+            console.log("✅ [STAGE 4] Firestore write successful");
 
-            // 3. FIREBASE RATE LIMIT CHECK
+            // ─── STAGE 5: Read back the document
+            console.log("📖 [STAGE 5] Reading document back from Firestore...");
             const docSnap = await getDoc(docRef);
             const now = Date.now();
             const oneHour = 60 * 60 * 1000;
 
             if (docSnap.exists()) {
                 const data = docSnap.data();
+                console.log("✅ [STAGE 5] Document found — count:", data.count, "| lastUpdated:", new Date(data.lastUpdated).toLocaleTimeString());
+
+                // ─── STAGE 6: Rate limit check
+                console.log("🔍 [STAGE 6] Checking rate limit...");
                 if (data.count >= 5 && (now - data.lastUpdated < oneHour)) {
                     const minsLeft = Math.ceil((oneHour - (now - data.lastUpdated)) / 60000);
+                    console.warn("🚫 [STAGE 6] Rate limit hit — blocking submission. Minutes left:", minsLeft);
                     alert(`Limit reached. Please try again in ${minsLeft} minutes.`);
                     submitBtn.textContent = originalText;
                     submitBtn.disabled = false;
-                    return; // EXIT - DO NOT SEND
+                    return;
                 }
+                console.log("✅ [STAGE 6] Rate limit not hit — proceeding");
+            } else {
+                console.log("ℹ️ [STAGE 5] No existing document found — first submission from this IP");
             }
 
-            // 4. IF ALLOWED, UPDATE FIREBASE
+            // ─── STAGE 7: Update Firestore with correct count
+            console.log("📝 [STAGE 7] Updating Firestore with final count...");
             if (!docSnap.exists() || (now - docSnap.data().lastUpdated >= oneHour)) {
+                console.log("🔄 [STAGE 7] Resetting count to 1 (new or expired window)");
                 await setDoc(docRef, { count: 1, lastUpdated: now });
             } else {
+                console.log("➕ [STAGE 7] Incrementing count within existing window");
                 await updateDoc(docRef, { count: increment(1), lastUpdated: now });
             }
+            console.log("✅ [STAGE 7] Firestore update complete");
 
-            // 5. FINALLY, SEND TO FORMSUBMIT
+            // ─── STAGE 8: Hand off to FormSubmit
+            console.log("📨 [STAGE 8] All checks passed — submitting form to FormSubmit...");
             submitBtn.textContent = 'Sending...';
-            contactForm.submit(); // This sends the form to formsubmit.co
+            contactForm.submit();
 
         } catch (error) {
-            console.error("Firebase Error:", error);
-            // If database fails, we let it send anyway so you don't lose customers
+            console.error("❌ [CATCH] Firebase error at runtime:", error);
+            console.warn("⚠️ [CATCH] Bypassing rate limiter and submitting anyway to avoid losing the lead");
             contactForm.submit();
         }
-        
+
     });
-} 
+}
