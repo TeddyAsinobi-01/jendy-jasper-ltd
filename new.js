@@ -60,6 +60,7 @@ async function fetchIP() {
 if (contactForm) {
     contactForm.addEventListener('submit', async function (e) {
         e.preventDefault();
+        const form = e.target;
         console.log("🚀 [STAGE 3] Form submit triggered — default prevented");
 
         // 1. Check hCaptcha safely to insulate from browser extensions
@@ -147,7 +148,7 @@ if (contactForm) {
 
                 if (response.ok) {
                     alert("Success! Your message has been sent.");
-                    contactForm.reset();
+                    form.reset();
                     if (typeof hcaptcha !== 'undefined') hcaptcha.reset(); // Reset captcha visually
                 } else {
                     console.error("Web3Forms Rejected Submission:", resData);
