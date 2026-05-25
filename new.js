@@ -64,19 +64,13 @@ if (contactForm) {
         console.log("🚀 [STAGE 3] Form submit triggered — default prevented");
 
         // 1. Check hCaptcha safely to insulate from browser extensions
-        let hcaptchaResponse = null;
-        try {
-            if (typeof hcaptcha !== 'undefined') {
-                hcaptchaResponse = hcaptcha.getResponse();
-            }
-        } catch (captchaErr) {
-            console.warn("Non-critical captcha listener warning caught safely.");
-        }
-
-        if (!hcaptchaResponse || hcaptchaResponse === "") {
-            alert("Please complete the hCaptcha verification first.");
+        const hcaptchaResponse = hcaptcha.getResponse();
+    
+        if (!hcaptchaResponse) {
+            alert("Please complete the captcha");
             return;
         }
+
 
         const originalText = submitBtn.textContent;
         submitBtn.textContent = 'Checking...';
@@ -124,16 +118,11 @@ if (contactForm) {
         
             console.log("✅ Rate limit check passed — sending form data...");
             
-            // Give hCaptcha engine a tiny window to completely settle token states
-            await new Promise(resolve => setTimeout(resolve, 300));
-            submitBtn.textContent = 'Sending...';
+
 
             // 3. Fire the Web3Forms AJAX Request
-            const formData = new FormData(contactForm);
-            
-            // REQUIRED FIX: Explicitly bind validation token key for Web3Forms validation
-            formData.append("h-captcha-response", hcaptchaResponse);
-
+            const formData = new FormData(form);
+                       
             try {
                 
                 const response = await fetch("https://api.web3forms.com/submit", {
@@ -144,21 +133,19 @@ if (contactForm) {
                     }
                 });
     
-                const resData = await response.json();
-
                 if (response.ok) {
-                    alert("Success! Your message has been sent.");
+                    alert("Message sent successfully");
                     form.reset();
-                    if (typeof hcaptcha !== 'undefined') hcaptcha.reset(); // Reset captcha visually
+                    hcaptcha.reset();
                 } else {
-                    console.error("Web3Forms Rejected Submission:", resData);
-                    alert("Error: " + (resData.message || "Submission failed."));
+                    alert("Something went wrong");
                 }
+    
 
             } catch (error) {
-                console.error("Web3Forms Fetch Error:", error);
-                alert("Something went wrong with the email server. Please try again.");
-            }
+                alert("Error sending form");
+            }//hcaptcha end
+            console.log("🚀 [STAGE 3] Form submit triggered — default prevented");
 
         } catch (firestoreError) {
             console.error("Firestore database error:", firestoreError);
