@@ -119,7 +119,8 @@ if (contactForm) {
             // 3. Fire the Web3Forms AJAX Request
             const formData = new FormData(contactForm);
             formData.append("access_key", "a581fc14-460b-4a42-83dc-9dae7bf467b9");
-
+            formData.append("h-captcha-response", hcaptchaResponse);
+            
             const response = await fetch("https://api.web3forms.com/submit", {
                 method: "POST",
                 body: formData,
