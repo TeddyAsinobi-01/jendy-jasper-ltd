@@ -149,6 +149,11 @@ if (contactForm) {
 
             const formData = new FormData(contactForm);
 
+            formData.append(
+                "h-captcha-response",
+                hcaptcha.getResponse()
+            );
+
             const response = await fetch(
                 "https://formsubmit.co/ajax/ibonisaledu@gmail.com",
                 {
@@ -169,7 +174,7 @@ if (contactForm) {
 
                 console.log("✅ FormSubmit Success:", resData);
 
-                alert("Success! Your message has been sent.");
+                window.location.href = "/jendy-jasper-ltd/thanks.html";
 
                 contactForm.reset();
 
