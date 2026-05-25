@@ -62,8 +62,16 @@ if (contactForm) {
         e.preventDefault();
         console.log("🚀 [STAGE 3] Form submit triggered — default prevented");
 
-        // 1. Check hCaptcha first
-        const hcaptchaResponse = hcaptcha.getResponse();
+        // 1. Check hCaptcha safely to insulate from browser extensions
+        let hcaptchaResponse = null;
+        try {
+            if (typeof hcaptcha !== 'undefined') {
+                hcaptchaResponse = hcaptcha.getResponse();
+            }
+        } catch (captchaErr) {
+            console.warn("Non-critical captcha listener warning caught safely.");
+        }
+
         if (!hcaptchaResponse) {
             alert("Please complete the captcha");
             return;
@@ -75,7 +83,7 @@ if (contactForm) {
 
         // 2. Fetch IP & Setup Firestore references
         const ip = await fetchIP();
-        const safeIP = ip.replace(/\./g, '_');
+        const safeIP = ip.replace(/\./g, '_').trim();
         const docRef = doc(db, "submissions", safeIP);
 
         const now = Date.now();
@@ -104,7 +112,7 @@ if (contactForm) {
                 
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
-                return; // Stop right here
+                return; 
             }
         
             // Update Firestore log
@@ -116,33 +124,35 @@ if (contactForm) {
             console.log("✅ Rate limit check passed — sending form data...");
             submitBtn.textContent = 'Sending...';
 
-            // 3. Fire the Web3Forms AJAX Request
+            // 3. Fire the Web3Forms AJAX Request (Fixed 'form' reference to 'contactForm')
             const formData = new FormData(contactForm);
-            formData.append("access_key", "a581fc14-460b-4a42-83dc-9dae7bf467b9");
-            formData.append("h-captcha-response", hcaptchaResponse);
             
-            const response = await fetch("https://api.web3forms.com/submit", {
-                method: "POST",
-                body: formData,
-                headers: { Accept: "application/json" }
-            });
-            
-            const result = await response.json();
-            console.log("Web3Forms response:", result);
-            
-            if (response.ok) {
-                alert("Message sent successfully");
-                contactForm.reset();
-                hcaptcha.reset();
-            } else {
-                alert("Something went wrong with Web3Forms.");
+            try {
+                const response = await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    body: formData,
+                    keepalive: true // Protect connection stability
+                });
+
+                const resData = await response.json();
+
+                if (response.ok) {
+                    alert("Success! Your message has been sent.");
+                    contactForm.reset();
+                    if (typeof hcaptcha !== 'undefined') hcaptcha.reset(); // Reset captcha visually
+                } else {
+                    alert("Error: " + (resData.message || "Submission failed."));
+                }
+
+            } catch (error) {
+                console.error("Web3Forms Fetch Error:", error);
+                alert("Something went wrong with the email server. Please try again.");
             }
-        
-        } catch (error) {
-            console.error("❌ Process Error:", error);
-            alert("Error sending form. Please try again later.");
+
+        } catch (firestoreError) {
+            console.error("Firestore database error:", firestoreError);
+            alert("Database connection failed. Please try again.");
         } finally {
-            // Always restore button state
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
         }
