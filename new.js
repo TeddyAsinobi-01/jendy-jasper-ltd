@@ -174,7 +174,7 @@ if (contactForm) {
 
                 console.log("✅ FormSubmit Success:", resData);
 
-                window.location.href = "/jendy-jasper-ltd/thanks.html";
+                window.location.href = "/jendy-jasper-ltd/thankyou.html";
 
                 contactForm.reset();
 
