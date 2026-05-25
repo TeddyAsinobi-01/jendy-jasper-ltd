@@ -1,15 +1,16 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 // ─── MOBILE NAV TOGGLE
 const menu = document.querySelector('#mobile-menu');
 const menuLinks = document.querySelector('.nav-links');
 
-menu.addEventListener('click', function () {
-    menu.classList.toggle('is-active');
-    menuLinks.classList.toggle('active');
-}); 
+if (menu && menuLinks) {
+    menu.addEventListener('click', function () {
+        menu.classList.toggle('is-active');
+        menuLinks.classList.toggle('active');
+    }); 
+}
 
 // ─── REVEAL ON SCROLL
 const obs = new IntersectionObserver(entries => {
@@ -20,7 +21,7 @@ const obs = new IntersectionObserver(entries => {
 
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-// ─── FIREBASE & FORM HANDLER (The Gatekeeper)
+// ─── FIREBASE CONFIG
 const firebaseConfig = {
   apiKey: "AIzaSyCkb6pQIXVyvkPN4YlX1jZBwi4w2-a1Rc4",
   authDomain: "my-website-limit.firebaseapp.com",
@@ -55,54 +56,26 @@ async function fetchIP() {
     }
 }
 
+// ─── FORM HANDLER
 if (contactForm) {
     contactForm.addEventListener('submit', async function (e) {
         e.preventDefault();
-        const form = e.target;
+        console.log("🚀 [STAGE 3] Form submit triggered — default prevented");
 
+        // 1. Check hCaptcha first
         const hcaptchaResponse = hcaptcha.getResponse();
-    
         if (!hcaptchaResponse) {
             alert("Please complete the captcha");
             return;
         }
-    
-        const formData = new FormData(form);
-        formData.append("access_key", "a581fc14-460b-4a42-83dc-9dae7bf467b9");
-        try {
-    
-            const response = await fetch("https://api.web3forms.com/submit", {
-                method: "POST",
-                body: formData,
-                headers: {
-                    Accept: "application/json"
-                }
-            });
-            const result = await response.json();
-            console.log("Web3Forms response:", result);
-            if (response.ok) {
-                alert("Message sent successfully");
-                form.reset();
-                hcaptcha.reset();
-            } else {
-                alert("Something went wrong");
-            }
-    
-        } catch (error) {
-            alert("Error sending form");
-        }//hcaptcha end
-    
-        console.log("🚀 [STAGE 3] Form submit triggered — default prevented");
 
         const originalText = submitBtn.textContent;
         submitBtn.textContent = 'Checking...';
         submitBtn.disabled = true;
 
-        // ─── FETCH IP
+        // 2. Fetch IP & Setup Firestore references
         const ip = await fetchIP();
         const safeIP = ip.replace(/\./g, '_');
-        console.log("🔑 [STAGE 3] Safe Firestore document ID:", safeIP);
-
         const docRef = doc(db, "submissions", safeIP);
 
         const now = Date.now();
@@ -110,9 +83,7 @@ if (contactForm) {
         
         try {
             console.log("📖 Checking Firestore rate limit...");
-        
             const docSnap = await getDoc(docRef);
-        
             let data = docSnap.exists() ? docSnap.data() : null;
         
             let count = data?.count || 0;
@@ -130,27 +101,49 @@ if (contactForm) {
             if (count >= 6) {
                 const minsLeft = Math.ceil((oneHour - (now - lastUpdated)) / 60000);
                 alert(`Limit reached. Try again in ${minsLeft} minutes.`);
-        
+                
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
-                return;
+                return; // Stop right here
             }
         
-            // ✅ Increment AFTER validation
+            // Update Firestore log
             await setDoc(docRef, {
                 count: count + 1,
                 lastUpdated: now
             });
         
-            console.log("✅ Allowed — submitting form");
-        
+            console.log("✅ Rate limit check passed — sending form data...");
             submitBtn.textContent = 'Sending...';
-           ;
+
+            // 3. Fire the Web3Forms AJAX Request
+            const formData = new FormData(contactForm);
+            formData.append("access_key", "a581fc14-460b-4a42-83dc-9dae7bf467b9");
+
+            const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                body: formData,
+                headers: { Accept: "application/json" }
+            });
+            
+            const result = await response.json();
+            console.log("Web3Forms response:", result);
+            
+            if (response.ok) {
+                alert("Message sent successfully");
+                contactForm.reset();
+                hcaptcha.reset();
+            } else {
+                alert("Something went wrong with Web3Forms.");
+            }
         
         } catch (error) {
-            console.error("❌ Rate limiter error:", error);
-             // fallback (optional)
+            console.error("❌ Process Error:", error);
+            alert("Error sending form. Please try again later.");
+        } finally {
+            // Always restore button state
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
         }
-
     });
 }
