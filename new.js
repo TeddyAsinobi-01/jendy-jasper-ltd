@@ -71,7 +71,7 @@ if (contactForm) {
     
         try {
     
-            const response = await fetch("https://formsubmit.co/ajax/ibonisaledu@gmail.com", {
+            const response = await fetch("https://api.web3forms.com/ajax/ibonisaledu@gmail.com", {
                 method: "POST",
                 body: formData,
                 headers: {
