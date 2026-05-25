@@ -72,8 +72,8 @@ if (contactForm) {
             console.warn("Non-critical captcha listener warning caught safely.");
         }
 
-        if (!hcaptchaResponse) {
-            alert("Please complete the captcha");
+        if (!hcaptchaResponse || hcaptchaResponse === "") {
+            alert("Please complete the hCaptcha verification first.");
             return;
         }
 
@@ -122,16 +122,22 @@ if (contactForm) {
             });
         
             console.log("✅ Rate limit check passed — sending form data...");
+            
+            // Give hCaptcha engine a tiny window to completely settle token states
+            await new Promise(resolve => setTimeout(resolve, 300));
             submitBtn.textContent = 'Sending...';
 
-            // 3. Fire the Web3Forms AJAX Request (Fixed 'form' reference to 'contactForm')
+            // 3. Fire the Web3Forms AJAX Request
             const formData = new FormData(contactForm);
             
+            // REQUIRED FIX: Explicitly bind validation token key for Web3Forms validation
+            formData.append("h-captcha-response", hcaptchaResponse);
+
             try {
                 const response = await fetch("https://api.web3forms.com/submit", {
                     method: "POST",
                     body: formData,
-                    keepalive: true // Protect connection stability
+                    keepalive: true // Protect connection stability across extensions
                 });
 
                 const resData = await response.json();
@@ -141,6 +147,7 @@ if (contactForm) {
                     contactForm.reset();
                     if (typeof hcaptcha !== 'undefined') hcaptcha.reset(); // Reset captcha visually
                 } else {
+                    console.error("Web3Forms Rejected Submission:", resData);
                     alert("Error: " + (resData.message || "Submission failed."));
                 }
 
