@@ -134,12 +134,15 @@ if (contactForm) {
             formData.append("h-captcha-response", hcaptchaResponse);
 
             try {
+                
                 const response = await fetch("https://api.web3forms.com/submit", {
                     method: "POST",
                     body: formData,
-                    keepalive: true // Protect connection stability across extensions
+                    headers: {
+                        Accept: "application/json"
+                    }
                 });
-
+    
                 const resData = await response.json();
 
                 if (response.ok) {
