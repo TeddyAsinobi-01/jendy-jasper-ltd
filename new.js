@@ -120,17 +120,38 @@ if (contactForm) {
             // RATE LIMIT BLOCK
             // ─────────────────────────────
             if (count >= 5) {
-                const minsLeft = Math.ceil(
-                    (oneHour - (now - lastUpdated)) / 60000
-                );
+    const minsLeft = Math.ceil(
+        (oneHour - (now - lastUpdated)) / 60000
+    );
 
-                alert(`Limit reached. Try again in ${minsLeft} minutes.`);
+    // Create and show modal
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+        display: flex; align-items: center; justify-content: center;
+        z-index: 9999;
+    `;
+    modal.innerHTML = `
+        <div style="
+            background: #fff; padding: 24px 32px; border-radius: 10px;
+            text-align: center; font-family: sans-serif; max-width: 320px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        ">
+            <p style="margin: 0; font-size: 15px; color: #333;">
+                ⚠️ Limit reached. Try again in <strong>${minsLeft} minute${minsLeft !== 1 ? 's' : ''}</strong>.
+            </p>
+        </div>
+    `;
+    document.body.appendChild(modal);
 
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
+    // Auto-dismiss after 2 seconds
+    setTimeout(() => modal.remove(), 2000);
 
-                return;
-            }
+    submitBtn.textContent = originalText;
+    submitBtn.disabled = false;
+
+    return;
+}
 
             // ─────────────────────────────
             // UPDATE FIRESTORE ONLY ONCE
