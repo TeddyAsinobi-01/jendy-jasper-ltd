@@ -266,7 +266,7 @@
       display: inline-block;
       padding: 0.75rem 2.2rem;
       border: 1.5px solid var(--ink);
-      color: var(#fff);
+      color: #fff;
       text-decoration: none;
       font-family: 'DM Sans', sans-serif;
       font-size: 0.8rem;

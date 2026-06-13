@@ -54,10 +54,56 @@ async function fetchIP() {
         return 'unknown';
     }
 }
-
+// ====================== EMAIL VALIDATION WITH AUTO MODAL ======================
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email.trim());
+  }
+  
+  // Show Modal (Auto hides after 2 seconds)
+  function showEmailErrorModal() {
+    const modal = document.getElementById('emailModal');
+    if (!modal) return;
+  
+    modal.style.display = 'block';
+  
+    // Auto close after 2 seconds
+    setTimeout(() => {
+      modal.style.display = 'none';
+    }, 2000);
+  }
+  
+  // ====================== MODAL CLOSE HANDLERS ======================
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('emailModal');
+    const closeBtn = document.querySelector('.modal-close');
+  
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        if (modal) modal.style.display = 'none';
+      });
+    }
+  
+    // Close when clicking outside
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+  }); 
+  
 if (contactForm) {
     contactForm.addEventListener('submit', async function (e) {
         e.preventDefault();
+// === EMAIL VALIDATION ===
+const emailInput = this.querySelector('input[name="email"]') || this.querySelector('#email');
+const email = emailInput ? emailInput.value : '';
+
+if (!email || !isValidEmail(email)) {
+  showEmailErrorModal();
+  if (emailInput) emailInput.focus();
+  return;   // Stop form submission
+}
 
         console.log("🚀 [STAGE 3] Form submit triggered");
 
