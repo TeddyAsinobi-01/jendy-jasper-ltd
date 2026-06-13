@@ -565,7 +565,7 @@ textarea { resize: vertical; min-height: 120px; }
 }
 
 .modal-close {
-  color: #aaa;
+  color: #000;
   float: right;
   font-size: 28px;
   font-weight: bold;
